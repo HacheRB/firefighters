@@ -1,0 +1,49 @@
+body{
+  background-color:#E5E5E5 ;
+  display:flex;
+  height:100vh;
+  width:100vw;
+}
+
+
+#game{
+  border:3px solid #FCA311;
+  background-color: white;
+  display:block;
+  margin:auto;
+  justify-content:center;
+  align-items:center;
+  width: 1200px;
+  height: 800px;
+  position: relative;
+}
+:root {
+  --window-height: 125px;
+  --window-width: 100px;
+  --window-vert-padding: 50px;
+  --window-horiz-padding: 50px;
+}
+#fireman {
+  position: absolute;
+  width: calc(var(--window-width));
+  height: calc(var(--window-height));
+  background-color: red;
+  z-index: 1000;
+}
+.window {
+  height: var(--window-height);
+  width:  var(--window-width);
+  position: absolute;
+  background-color: blueviolet;
+  z-index:900;
+}
+
+.row1 { top: var(--window-height); }
+.row2 { top: calc(var(--window-height)*2 + var(--window-vert-padding)); }
+.row3 { top: calc(var(--window-height)* 3 +  var(--window-vert-padding)*2); }
+.row4 { top: calc(var(--window-height)* 4 +  var(--window-vert-padding)*3); }
+
+.col1 { left: var(--window-width); }
+.col2 { left: calc(var(--window-width)*2 + var(--window-horiz-padding));}
+.col3 { left: calc(var(--window-width)*3 + var(--window-horiz-padding)*2);}
+.col4 { left: calc(var(--window-width)*4 + var(--window-horiz-padding)*3);}
