@@ -48,12 +48,30 @@ body{
   z-index: 1000;
 }
 
+
+
 .window {
   height: var(--window-height);
   width:  var(--window-width);
   position: absolute;
   background-color: blueviolet;
   z-index:900;
+}
+
+.fireOnWindow {
+
+  background-color: orange;
+  z-index: 920;
+}
+
+.npcOnWindow {
+
+  background-color: blue;
+  z-index: 940;
+}
+
+.firemanHasNpc {
+  
 }
 
 .row1 { top: var(--window-height); }

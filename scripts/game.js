@@ -20,15 +20,35 @@ const game = new Game();
 
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
-  console.log(this.elem);
+  //console.log(this.elem);
   this.npc = false;
   this.fire = false;
+
+  this.setFire = function (){
+    this.elem.classList.add("fireOnWindow");
+    this.fire = true;
+  }
+
+  this.removeFire = function () {
+    this.elem.classList.remove("fireOnWindow");
+    this.fire = false; 
+  }
+
+  this.setNpc = function (){
+    this.elem.classList.add("npcOnWindow"); 
+    this.npc = true;
+  }
+  this.removeNpc = function (){
+    this.elem.classList.remove("npcOnWindow");
+    this.npc = false;
+  }
 }
 
 function Fireman() {
   this.elem = document.getElementById('fireman')
   this.col = 4;
   this.row = 4;
+  this.hasNpc = false;
   this.move = function (dir) {
     if (dir === "right" && this.col < 4) { this.col++ }
     if (dir === "up" && this.row > 1) { this.row-- }
@@ -51,14 +71,31 @@ function Game() {
   this.window9 = new windowObj(33);
 }
 
+function checkNpcOnWindow(){
+  //tenemos que detectar la posicion de la ventana y comprobar si npc esta e true
+  
+    var firemanRow = `row${game.fireman.row}`;
+    var firemanCol =`col${game.fireman.col}`;
+    console.log(firemanRow);
+    console.log(firemanCol);
+}
+
+checkNpcOnWindow();
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowRight") { game.fireman.move("right") }
   if (event.key === "ArrowUp") { game.fireman.move("up") }
   if (event.key === "ArrowDown") { game.fireman.move("down") }
   if (event.key === "ArrowLeft") { game.fireman.move("left") }
+
 })
 
 console.log(game.window1.npc);
+game.window1.setNpc();
+game.window2.setFire();
+
+//game.window1.removeNpc();
+//game.window2.removeFire();
+
 
 /*
 console.log(game.windows.getRandomWindow());  //style.backgroundColor = 'red';
