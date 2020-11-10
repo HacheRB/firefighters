@@ -1,3 +1,10 @@
+:root {
+  --window-height: 125px;
+  --window-width: 100px;
+  --window-vert-padding: 50px;
+  --window-horiz-padding: 50px;
+}
+
 body{
   background-color:#E5E5E5 ;
   display:flex;
@@ -5,10 +12,9 @@ body{
   width:100vw;
 }
 
-
 #game{
   border:3px solid #FCA311;
-  background-color: white;
+  background-color:lightblue;
   display:block;
   margin:auto;
   justify-content:center;
@@ -17,12 +23,14 @@ body{
   height: 800px;
   position: relative;
 }
-:root {
-  --window-height: 125px;
-  --window-width: 100px;
-  --window-vert-padding: 50px;
-  --window-horiz-padding: 50px;
+#building{
+  position: absolute;
+  width: calc(var(--window-width)*6);
+  height: calc(var(--window-height)*6);
+  top: 50px;
+  background-color:darkgray;
 }
+
 #fireman {
   position: absolute;
   width: calc(var(--window-width));
@@ -30,6 +38,7 @@ body{
   background-color: red;
   z-index: 1000;
 }
+
 .window {
   height: var(--window-height);
   width:  var(--window-width);
