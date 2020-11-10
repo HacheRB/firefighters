@@ -23,12 +23,21 @@ body{
   height: 800px;
   position: relative;
 }
+
 #building{
-  position: absolute;
+  position:absolute;
   width: calc(var(--window-width)*6);
   height: calc(var(--window-height)*6);
   top: 50px;
   background-color:darkgray;
+}
+
+#sidewalk{
+  position: absolute;
+  width: 1200px;
+  height: 25px;
+  top: 775px;
+  background-color:rgb(109, 105, 105);
 }
 
 #fireman {
