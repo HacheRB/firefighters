@@ -1,21 +1,4 @@
-/* Funciones que no usamos
-function Windows() {
-  this.window1 = document.getElementById("window11");
-  this.window2 = document.getElementById("window12");
-  this.window3 = document.getElementById("window13");
-  this.window4 = document.getElementById("window21");
-  this.window5 = document.getElementById("window22");
-  this.window6 = document.getElementById("window23");
-  this.window7 = document.getElementById("window31");
-  this.window8 = document.getElementById("window32");
-  this.window9 = document.getElementById("window33");
-  this.getRandomWindow = function () {
-    var windowSel = Math.floor(Math.random() * 9) + 1;
-    //console.log(windowSel);
-    return windowSel;
-  }
-}*/
-
+//Variables
 const game = new Game();
 
 function windowObj(num) {
@@ -52,19 +35,19 @@ function Fireman() {
   this.move = function (dir) {
     if (dir === "right" && this.col < 4) {
       this.col++;
-      checkWindow();
+      
     }
     if (dir === "up" && this.row > 1) {
       this.row--;
-      checkWindow();
+      
     }
     if (dir === "left" && this.col > 1) {
       this.col--;
-      checkWindow();
+      
     }
     if (dir === "down" && this.row < 4) {
       this.row++;
-      checkWindow();
+     
     }
     this.elem.classList = `row${this.row} col${this.col}`
   }
@@ -72,31 +55,44 @@ function Fireman() {
 
 function Game() {
   this.fireman = new Fireman();
-  this.window1 = new windowObj(11);
-  this.window2 = new windowObj(12);
-  this.window3 = new windowObj(13);
-  this.window4 = new windowObj(21);
-  this.window5 = new windowObj(22);
-  this.window6 = new windowObj(23);
-  this.window7 = new windowObj(31);
-  this.window8 = new windowObj(32);
-  this.window9 = new windowObj(33);
+  this.windows = [ 
+    new windowObj(11),
+    new windowObj(12),
+    new windowObj(13),
+    new windowObj(21),
+    new windowObj(22),
+    new windowObj(23),
+    new windowObj(31),
+    new windowObj(32),
+    new windowObj(33)
+  ];
 }
 
-function checkWindow() {
-  let windowsArr = document.getElementsByClassName(`window`);
+function checkWindow(windowsArr) {
+  
   let firemanRow = `row${game.fireman.row}`;
   let firemanCol = `col${game.fireman.col}`;
   for (let i = 0; i < windowsArr.length; i++) {
-    if ((windowsArr[i].classList.contains(firemanRow)) && (windowsArr[i].classList.contains(firemanCol))) {
-      console.log("window");
+    //console.log(windowsArr[i].elem);
+    //console.log(windowsArr[i].elem.contains(firemanRow));
+    if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
+      //console.log("window");
+      console.log(windowsArr[i]);
+      checkNpc(windowsArr[i]);
     }
   }
 }
+// this.elem = document.getElementById('window' + num);
 
-function checkNpc() {
-
+function checkNpc(window) {
+  if (window.npc){
+    console.log("Tiene Npc");
+  }
+  else{
+    console.log("No tiene Npc");
+  }
 }
+
 
 
 document.addEventListener("keydown", function (event) {
@@ -104,13 +100,14 @@ document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowUp") { game.fireman.move("up") }
   if (event.key === "ArrowDown") { game.fireman.move("down") }
   if (event.key === "ArrowLeft") { game.fireman.move("left") }
-
+  if (event.key === " ") { checkWindow(game.windows) }
+  //console.log(event);
 })
+console.log(game);
+game.windows[0].setNpc();
+game.windows[2].setNpc();
+console.log(game.windows[0]);
 
-console.log(game.window1.npc);
-game.window1.setNpc();
-game.window2.setFire();
-checkWindow();
 
 //game.window1.removeNpc();
 //game.window2.removeFire();
