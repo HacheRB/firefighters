@@ -44,8 +44,17 @@ body{
   position: absolute;
   width: calc(var(--window-width));
   height: calc(var(--window-height));
-  background-color: red;
-  z-index: 1000;
+  z-index: 800;
+}
+
+.fireman {
+  background-color: orange;
+ 
+}
+
+.wiNpc {
+  background-color: greenyellow;
+  
 }
 
 .window {
@@ -53,21 +62,22 @@ body{
   width:  var(--window-width);
   position: absolute;
   background-color: blueviolet;
-  z-index:900;
+  z-index:300;
 }
 
 .fireOnWindow {
   background-color: orange;
-  z-index: 920;
+  z-index: 400;
 }
 
 .npcOnWindow {
   background-color: blue;
-  z-index: 940;
+  z-index: 500;
 }
 
-.firemanHasNpc {
-  background-color:burlywood;
+.h {
+  background-color: chartreuse;
+  z-index: 700;
 }
 
 .row1 { top: var(--window-height); }

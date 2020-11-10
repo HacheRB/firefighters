@@ -28,10 +28,19 @@ function windowObj(num) {
 }
 
 function Fireman() {
-  this.elem = document.getElementById('fireman')
+  this.elem = document.getElementById("fireman");
   this.col = 4;
   this.row = 4;
-  this.hasNpc = false;
+  this.npc = false;
+  
+  this.setNpc = function () {
+    this.elem.classList.add("wiNpc");
+    this.npc = true;
+  }
+  this.removeNpc = function () {
+    this.elem.classList.remove("wiNpc");
+    this.npc = false;
+  }
   this.move = function (dir) {
     if (dir === "right" && this.col < 4) {
       this.col++;
@@ -49,7 +58,9 @@ function Fireman() {
       this.row++;
      
     }
-    this.elem.classList = `row${this.row} col${this.col}`
+    //this.elem.classList.remove([`row${this.row}`, ]`row${this.row}`)
+    // col${this.col})
+   // this.elem.classList = `row${this.row} col${this.col}`
   }
 }
 
@@ -68,7 +79,7 @@ function Game() {
   ];
 }
 
-function checkWindow(windowsArr) {
+function checkWindow(windowsArr, fireman) {
   
   let firemanRow = `row${game.fireman.row}`;
   let firemanCol = `col${game.fireman.col}`;
@@ -78,21 +89,24 @@ function checkWindow(windowsArr) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
       //console.log("window");
       console.log(windowsArr[i]);
-      checkNpc(windowsArr[i]);
+      checkNpc(windowsArr[i], fireman);
     }
   }
 }
 // this.elem = document.getElementById('window' + num);
 
-function checkNpc(window) {
+function checkNpc(window, fireman) {
   if (window.npc){
+    window.removeNpc();
+    fireman.setNpc();
+    console.log(fireman);
     console.log("Tiene Npc");
   }
   else{
     console.log("No tiene Npc");
   }
-}
 
+}
 
 
 document.addEventListener("keydown", function (event) {
@@ -100,7 +114,7 @@ document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowUp") { game.fireman.move("up") }
   if (event.key === "ArrowDown") { game.fireman.move("down") }
   if (event.key === "ArrowLeft") { game.fireman.move("left") }
-  if (event.key === " ") { checkWindow(game.windows) }
+  if (event.key === " ") { checkWindow(game.windows, game.fireman) }
   //console.log(event);
 })
 console.log(game);
