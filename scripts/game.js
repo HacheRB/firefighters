@@ -34,11 +34,11 @@ function Fireman() {
   this.npc = false;
   
   this.setNpc = function () {
-    this.elem.classList.add("wiNpc");
+    this.elem.classList.add("withNpc");
     this.npc = true;
   }
   this.removeNpc = function () {
-    this.elem.classList.remove("wiNpc");
+    this.elem.classList.remove("withNpc");
     this.npc = false;
   }
   this.move = function (dir) {
@@ -58,9 +58,18 @@ function Fireman() {
       this.row++;
      
     }
-    //this.elem.classList.remove([`row${this.row}`, ]`row${this.row}`)
-    // col${this.col})
-   // this.elem.classList = `row${this.row} col${this.col}`
+
+    if(!fireman.npc){
+      this.elem.classList = `row${this.row} col${this.col}`
+    }
+    
+    if (fireman.npc){
+      this.elem.classList = `row${this.row} col${this.col }withNpc`
+    }
+
+    
+    
+    //this.elem.classList = `row${this.row} col${this.col}`
   }
 }
 
@@ -91,6 +100,11 @@ function checkWindow(windowsArr, fireman) {
       console.log(windowsArr[i]);
       checkNpc(windowsArr[i], fireman);
     }
+    if (fireman.row === 4  && fireman.npc ){
+      dropNpc(fireman);
+      console.log(fireman);
+    }
+
   }
 }
 // this.elem = document.getElementById('window' + num);
@@ -99,14 +113,16 @@ function checkNpc(window, fireman) {
   if (window.npc){
     window.removeNpc();
     fireman.setNpc();
-    console.log(fireman);
-    console.log("Tiene Npc");
   }
-  else{
-    console.log("No tiene Npc");
+}
+
+function dropNpc(fireman){
+    fireman.removeNpc();
+    //sumar puntos, actualizar contadores 
+    
   }
 
-}
+
 
 
 document.addEventListener("keydown", function (event) {
@@ -118,7 +134,7 @@ document.addEventListener("keydown", function (event) {
   //console.log(event);
 })
 console.log(game);
-game.windows[0].setNpc();
+game.windows[1].setNpc();
 game.windows[2].setNpc();
 console.log(game.windows[0]);
 

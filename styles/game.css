@@ -44,18 +44,21 @@ body{
   position: absolute;
   width: calc(var(--window-width));
   height: calc(var(--window-height));
-  z-index: 800;
+  background-color:red;
+  z-index: 600;
 }
 
-.fireman {
-  background-color: orange;
- 
-}
 
-.wiNpc {
+#fireman > .withNpc {
   background-color: greenyellow;
-  
+  z-index: 900;
 }
+
+.withNpc {
+  background-color: greenyellow;
+  z-index: 900;
+}
+
 
 .window {
   height: var(--window-height);
@@ -75,10 +78,6 @@ body{
   z-index: 500;
 }
 
-.h {
-  background-color: chartreuse;
-  z-index: 700;
-}
 
 .row1 { top: var(--window-height); }
 .row2 { top: calc(var(--window-height)*2 + var(--window-vert-padding)); }
