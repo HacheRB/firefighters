@@ -1,48 +1,39 @@
 //Variables
 const game = new Game();
-
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
-
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
   }
-
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
     this.fire = false;
   }
-
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
     this.npc = true;
   }
-
   this.removeNpc = function () {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
   }
 }
-
 function Fireman() {
   this.elem = document.getElementById("fireman");
   this.col = 4;
   this.row = 4;
   this.npc = false;
-
   this.setNpc = function () {
     this.elem.classList.add("withNpc");
     this.npc = true;
   }
-
   this.removeNpc = function () {
     this.elem.classList.remove("withNpc");
     this.npc = false;
   }
-
   this.move = function (dir) {
     if (dir === "right" && this.col < 4) {
       this.col++;
@@ -56,19 +47,18 @@ function Fireman() {
     if (dir === "down" && this.row < 4) {
       this.row++;
     }
-    if(!fireman.npc){
+    if (!fireman.npc) {
       this.elem.classList = `row${this.row} col${this.col}`
     }
-    if (fireman.npc){
-      this.elem.classList = `row${this.row} col${this.col }withNpc`
+    if (fireman.npc) {
+      this.elem.classList = `row${this.row} col${this.col}withNpc`
     }
     //this.elem.classList = `row${this.row} col${this.col}`
   }
 }
-
 function Game() {
   this.fireman = new Fireman();
-  this.windows = [ 
+  this.windows = [
     new windowObj(11),
     new windowObj(12),
     new windowObj(13),
@@ -80,7 +70,6 @@ function Game() {
     new windowObj(33)
   ];
 }
-
 function checkWindow(windowsArr, fireman) {
   let firemanRow = `row${game.fireman.row}`;
   let firemanCol = `col${game.fireman.col}`;
@@ -88,35 +77,48 @@ function checkWindow(windowsArr, fireman) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
       checkNpc(windowsArr[i], fireman);
     }
-    if (fireman.row === 4  && fireman.npc ){
+    if (fireman.row === 4 && fireman.npc) {
       dropNpc(fireman);
     }
   }
 }
-
 function checkNpc(window, fireman) {
-  if (window.npc){
+  if (window.npc) {
     window.removeNpc();
     fireman.setNpc();
   }
 }
-
-function dropNpc(fireman){
-    fireman.removeNpc();
-    //sumar puntos, actualizar contadores 
-  }
-
-function generateNpc(windowsArr){
-  let randomNpc = Math.floor(Math.random()*8 );
-  let ISFULL = (item) => item.npc === true;   
-  if (windowsArr.every(ISFULL)){
+function dropNpc(fireman) {
+  fireman.removeNpc();
+  //sumar puntos, actualizar contadores 
+}
+function generateNpc(windowsArr) {
+  let randomNpc = Math.floor(Math.random() * 8);
+  let ISFULL = (item) => item.npc === true;
+  if (windowsArr.every(ISFULL)) {
     return;
   }
-  else if(!windowsArr[randomNpc].npc){
+  else if (!windowsArr[randomNpc].npc) {
     windowsArr[randomNpc].setNpc();
   }
-  else{
+  else {
     generateNpc(windowsArr);
+  }
+}
+//refactorizar las 2 funciones generateNpc y generateFire, 
+//tened en cuenta que el fuego necesitamos 2 contadores npc y fire
+//el npc le pondremos un math random para que muera a un tiempo 
+function generateFire(windowsArr) {
+  let randomFire = Math.floor(Math.random() * 8);
+  let ISFULL = (item) => item.fire === true;
+  if (windowsArr.every(ISFULL)) {
+    return;
+  }
+  else if (!windowsArr[randomFire].fire) {
+    windowsArr[randomFire].setFire();
+  }
+  else {
+    generateFire(windowsArr);
   }
 }
 document.addEventListener("keydown", function (event) {
@@ -127,16 +129,37 @@ document.addEventListener("keydown", function (event) {
   if (event.key === " ") { checkWindow(game.windows, game.fireman) }
   //console.log(event);
 })
-
+//error git 
 //PRUEBAS 
-//game.windows[1].setNpc();
-//game.windows[2].setNpc();
-game.windows[3].setNpc();
-game.windows[4].setNpc();
-game.windows[5].setNpc();
-game.windows[6].setNpc();
-game.windows[7].setNpc();
-game.windows[8].setNpc();
-game.windows[0].setNpc();
-console.log(game.windows[0]);
+////game.windows[1].setFire();
+//game.windows[2].setFire();
+//game.windows[3].setFire();
+//game.windows[4].setFire();
+//game.windows[5].setFire();
+//game.windows[6].setFire();
+//game.windows[7].setFire();
+//game.windows[8].setFire();
+//game.windows[0].setFire();
 generateNpc(game.windows);
+generateNpc(game.windows);
+console.log(game.windows[0]);
+generateFire(game.windows);
+generateFire(game.windows);
+//generateFire(game.windows);
+git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
