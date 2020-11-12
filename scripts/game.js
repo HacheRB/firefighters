@@ -1,17 +1,26 @@
 //Variables
 const game = new Game();
 
+
+
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
+   
+
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
+    //this.timerDuration = setTimeout(this.removeFire, 5000);
+    
   }
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
+    //console.log(this.elem);
     this.fire = false;
+
+
   }
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
@@ -129,46 +138,51 @@ function generateNpc(windowsArr) {
 //tened en cuenta que el fuego necesitamos 2 contadores npc y fire
 //el npc le pondremos un math random para que muera a un tiempo 
 function generateFire(windowsArr) {
-  let randomFire = Math.floor(Math.random() * 8);
+  let randomFire = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.fire === true;
   if (windowsArr.every(ISFULL)) {
+    console.log("GAME OVER");
     return;
   }
   else if (!windowsArr[randomFire].fire) {
     windowsArr[randomFire].setFire();
+    //let timerDuration = setTimeout(windowsArr[randomFire].removeFire, 5000);
+    
   }
   else {
     generateFire(windowsArr);
   }
 }
 
+function extinguishFire(windowsArr, fireman) {
+  let firemanRow = `row${game.fireman.row}`;
+  let firemanCol = `col${game.fireman.col}`;
+  for (let i = 0; i < windowsArr.length; i++) {
+    if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
+        console.log("Antes"+windowsArr[i]);
+        windowsArr[i].removeFire;
+        console.log("Despues"+windowsArr[i]);
+    }
+   
+  }
+}
+
 let timerFire = setInterval(generateFire, 2000, game.windows);
-let timerNpc = setInterval(generateNpc, 2000, game.windows);
+//let timerNpc = setInterval(generateNpc, 2000, game.windows);
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowRight") { game.fireman.move("right") }
   if (event.key === "ArrowUp") { game.fireman.move("up") }
   if (event.key === "ArrowDown") { game.fireman.move("down") }
   if (event.key === "ArrowLeft") { game.fireman.move("left") }
-  if (event.key === " ") { checkWindow(game.windows, game.fireman) }
-  //console.log(event);
+  if (event.key === " ") { checkWindow(game.windows, game.fireman)}
+  if (event.key === "KeyA") { console.log("Has pulsado la A")}
+  console.log(event.key);
 })
-//error git 
-//PRUEBAS 
-////game.windows[1].setFire();
-//game.windows[2].setFire();
-//game.windows[3].setFire();
-//game.windows[4].setFire();
-//game.windows[5].setFire();
-//game.windows[6].setFire();
-//game.windows[7].setFire();
-//game.windows[8].setFire();
-//game.windows[0].setFire();
+
 generateNpc(game.windows);
 generateNpc(game.windows);
-generateFire(game.windows);
-generateFire(game.windows);
-//generateFire(game.windows);
+
 
 
 
