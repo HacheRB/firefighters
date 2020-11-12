@@ -7,13 +7,13 @@ function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
-   
+
 
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
     //this.timerDuration = setTimeout(this.removeFire, 5000);
-    
+
   }
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
@@ -147,7 +147,6 @@ function generateFire(windowsArr) {
   else if (!windowsArr[randomFire].fire) {
     windowsArr[randomFire].setFire();
     //let timerDuration = setTimeout(windowsArr[randomFire].removeFire, 5000);
-    
   }
   else {
     generateFire(windowsArr);
@@ -159,11 +158,11 @@ function extinguishFire(windowsArr, fireman) {
   let firemanCol = `col${game.fireman.col}`;
   for (let i = 0; i < windowsArr.length; i++) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
-        console.log("Antes"+windowsArr[i]);
-        windowsArr[i].removeFire;
-        console.log("Despues"+windowsArr[i]);
+      console.log("Antes" + windowsArr[i]);
+      windowsArr[i].removeFire();
+      console.log("Despues" + windowsArr[i]);
     }
-   
+
   }
 }
 
@@ -171,13 +170,13 @@ let timerFire = setInterval(generateFire, 2000, game.windows);
 //let timerNpc = setInterval(generateNpc, 2000, game.windows);
 
 document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowRight") { game.fireman.move("right") }
-  if (event.key === "ArrowUp") { game.fireman.move("up") }
-  if (event.key === "ArrowDown") { game.fireman.move("down") }
-  if (event.key === "ArrowLeft") { game.fireman.move("left") }
-  if (event.key === " ") { checkWindow(game.windows, game.fireman)}
-  if (event.key === "KeyA") { console.log("Has pulsado la A")}
-  console.log(event.key);
+  if (event.code === "ArrowRight") { game.fireman.move("right") }
+  if (event.code === "ArrowUp") { game.fireman.move("up") }
+  if (event.code === "ArrowDown") { game.fireman.move("down") }
+  if (event.code === "ArrowLeft") { game.fireman.move("left") }
+  if (event.code === "KeyA") { extinguishFire(game.windows, game.fireman) }
+  if (event.code === "Space") { checkWindow(game.windows, game.fireman) }
+  console.log(event.code);
 })
 
 generateNpc(game.windows);
