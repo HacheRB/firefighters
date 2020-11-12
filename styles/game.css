@@ -44,21 +44,15 @@ body{
   position: absolute;
   width: calc(var(--window-width));
   height: calc(var(--window-height));
-  background-color:red;
   z-index: 600;
 }
 
-
-#fireman > .withNpc {
-  background-color: greenyellow;
-  z-index: 900;
+.withoutNpc{
+  background-color: red;
 }
-
 .withNpc {
   background-color: greenyellow;
-  z-index: 900;
-}
-
+ }
 
 .window {
   height: var(--window-height);

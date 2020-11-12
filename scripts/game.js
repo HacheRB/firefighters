@@ -1,5 +1,6 @@
 //Variables
 const game = new Game();
+
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
@@ -27,14 +28,19 @@ function Fireman() {
   this.row = 4;
   this.npc = false;
   this.setNpc = function () {
+    this.elem.classList.remove("withoutNpc");
     this.elem.classList.add("withNpc");
     this.npc = true;
   }
   this.removeNpc = function () {
     this.elem.classList.remove("withNpc");
+    this.elem.classList.add("withoutNpc");
     this.npc = false;
   }
   this.move = function (dir) {
+    this.elem.classList.remove(`row${this.row}`);
+    this.elem.classList.remove(`col${this.col}`);
+
     if (dir === "right" && this.col < 4) {
       this.col++;
     }
@@ -47,17 +53,23 @@ function Fireman() {
     if (dir === "down" && this.row < 4) {
       this.row++;
     }
-    if (!fireman.npc) {
-      this.elem.classList = `row${this.row} col${this.col}`
-    }
-    if (fireman.npc) {
-      this.elem.classList = `row${this.row} col${this.col}withNpc`
-    }
+
+    this.elem.classList.add(`row${this.row}`);
+    this.elem.classList.add(`col${this.col}`);
+    //this.elem.classList = `row${this.row} col${this.col}`
+
+    // if (!fireman.npc) {
+    //   this.elem.classList = `row${this.row} col${this.col} withoutNpc`
+    // }
+    // else {
+    //   this.elem.classList = `row${this.row} col${this.col} withNpc`
+    // }
     //this.elem.classList = `row${this.row} col${this.col}`
   }
 }
 function Game() {
   this.fireman = new Fireman();
+  this.fireman.removeNpc();
   this.windows = [
     new windowObj(11),
     new windowObj(12),
@@ -142,11 +154,9 @@ document.addEventListener("keydown", function (event) {
 //game.windows[0].setFire();
 generateNpc(game.windows);
 generateNpc(game.windows);
-console.log(game.windows[0]);
 generateFire(game.windows);
 generateFire(game.windows);
 //generateFire(game.windows);
-git
 
 
 
