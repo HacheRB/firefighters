@@ -7,7 +7,8 @@ function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
-
+  this.countNpc = 0;
+  
 
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
@@ -30,6 +31,11 @@ function windowObj(num) {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
   }
+
+  this.countState = function () {
+  
+  }
+  
 }
 function Fireman() {
   this.elem = document.getElementById("fireman");
@@ -80,6 +86,7 @@ function Fireman() {
 function Game() {
   this.fireman = new Fireman();
   this.fireman.removeNpc();
+  this.point = 0;
   this.windows = [
     new windowObj(11),
     new windowObj(12),
@@ -93,7 +100,15 @@ function Game() {
   ];
 }
 
+function mainMenu() {
+  //ocultar live y points
+  let hiddenLifes = document.getElementById("lifes");
+  hiddenLifes.style.display = "none";
+  let hiddenPoints = document.getElementById("score");
+  hiddenPoints.style.display = "none";
+}
 
+mainMenu();
 
 function checkWindow(windowsArr, fireman) {
   let firemanRow = `row${game.fireman.row}`;
@@ -152,6 +167,8 @@ function generateFire(windowsArr) {
     generateFire(windowsArr);
   }
 }
+
+//funcion añada fuego a celdas que tienen NPC,
 
 function extinguishFire(windowsArr, fireman) {
   let firemanRow = `row${game.fireman.row}`;
