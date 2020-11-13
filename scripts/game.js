@@ -1,5 +1,11 @@
 //Variables
-const game = new Game();
+var points = 0;
+var gameOn = false;
+const game = newGame();
+
+
+
+//const game = new Game();
 
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
@@ -16,7 +22,6 @@ function windowObj(num) {
     this.elem.classList.remove("fireOnWindow");
     //console.log(this.elem);
     this.fire = false;
-
   }
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
@@ -26,7 +31,6 @@ function windowObj(num) {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
   }
-
   this.countState = function () {
     console.log("pendiente");
   }
@@ -64,24 +68,19 @@ function Fireman() {
     if (dir === "down" && this.row < 4) {
       this.row++;
     }
-
     this.elem.classList.add(`row${this.row}`);
     this.elem.classList.add(`col${this.col}`);
-    //this.elem.classList = `row${this.row} col${this.col}`
-    // if (!fireman.npc) {
-    //   this.elem.classList = `row${this.row} col${this.col} withoutNpc`
-    // }
-    // else {
-    //   this.elem.classList = `row${this.row} col${this.col} withNpc`
-    // }
-    //this.elem.classList = `row${this.row} col${this.col}`
   }
 }
 
-function Game() {
+function mainMenu() {
+  //ocultar live y points
+  document.getElementById("lifes").style.display ="none";
+  document.getElementById("score").style.display ="none";
+}
+
+function newGame(){
   this.fireman = new Fireman();
-  this.fireman.removeNpc();
-  this.point = 0;
   this.windows = [
     new windowObj(11),
     new windowObj(12),
@@ -93,21 +92,22 @@ function Game() {
     new windowObj(32),
     new windowObj(33)
   ];
+  document.getElementById("lifes").style.display ="block";
+  document.getElementById("score").style.display ="block";
+  //this.timerFire = setInterval(generateFire, 2000, newGame.windows);
+  //let timerNpc = setInterval(generateNpc, 2000, newGame.windows);
 }
 
-function mainMenu() {
-  //ocultar live y points
-  let hiddenLifes = document.getElementById("lifes");
-  hiddenLifes.style.display = "none";
-  let hiddenPoints = document.getElementById("score");
-  hiddenPoints.style.display = "none";
+function endGame(game){
+  clearInterval(game.timerFire);
+  clearInterval(game.timerNpc);
+  let totalPoints = points;
+  points = 0;
 }
-
-mainMenu();
 
 function checkWindow(windowsArr, fireman) {
-  let firemanRow = `row${game.fireman.row}`;
-  let firemanCol = `col${game.fireman.col}`;
+  let firemanRow = `row${fireman.row}`;
+  let firemanCol = `col${fireman.col}`;
   for (let i = 0; i < windowsArr.length; i++) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
       checkNpc(windowsArr[i], fireman);
@@ -127,10 +127,12 @@ function checkNpc(window, fireman) {
 
 function dropNpc(fireman) {
   fireman.removeNpc();
-  //sumar puntos, actualizar contadores 
+  points +=100;
+  //actualizar contador
 }
 
 function generateNpc(windowsArr) {
+  console.log(windowsArr);
   let randomNpc = Math.floor(Math.random() * 8);
   let ISFULL = (item) => item.npc === true;
   if (windowsArr.every(ISFULL)) {
@@ -166,8 +168,8 @@ function generateFire(windowsArr) {
 //funcion añada fuego a celdas que tienen NPC,
 
 function extinguishFire(windowsArr, fireman) {
-  let firemanRow = `row${game.fireman.row}`;
-  let firemanCol = `col${game.fireman.col}`;
+  let firemanRow = `row${fireman.row}`;
+  let firemanCol = `col${fireman.col}`;
   for (let i = 0; i < windowsArr.length; i++) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
       console.log("Antes" + windowsArr[i]);
@@ -177,8 +179,7 @@ function extinguishFire(windowsArr, fireman) {
   }
 }
 
-let timerFire = setInterval(generateFire, 2000, game.windows);
-//let timerNpc = setInterval(generateNpc, 2000, game.windows);
+
 
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") { game.fireman.move("right") }
@@ -190,8 +191,17 @@ document.addEventListener("keydown", function (event) {
   console.log(event.code);
 })
 
-generateNpc(game.windows);
-generateNpc(game.windows);
+const button = document.getElementById('start')
+button.addEventListener("click", function (event) {
+    if (!gameOn) {
+    button.innerText = 'Reset'
+    //empezar timers
+    } else {
+    button.innerText = 'Start'
+    //funcion reset
+    endGame(game);
+  }
+})
 
 
 

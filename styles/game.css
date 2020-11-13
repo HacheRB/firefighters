@@ -9,7 +9,7 @@
 }
 
 .h1{
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .h2{
@@ -37,13 +37,13 @@ body{
 }
 
 /* All ID/divs with Absolute position */
-#score, #lifes, #title,#btnStartStop, #building, #sidewalk, #fireman, .window {
+#score, #lifes, #title, #start, #building, #sidewalk, #fireman, .window {
   position:absolute;
 }
 
 /* Menu / UI -------------------------------------------*/
 /*  Margin right for some UI */
-#scores, #lifes {
+#score, #lifes {
   right:20px;
 }
 #score{
@@ -58,9 +58,11 @@ body{
   right: 55px;
   top: 310px;
   text-align: center;
+  font-size: 0.2;
+
   }
 
-#btnStartStop{
+#start{
   right: 200px;
   top: 450px;
   text-align: center;
