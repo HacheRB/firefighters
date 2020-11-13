@@ -1,11 +1,11 @@
 //Variables
 var points = 0;
-var gameOn = false;
-const game = newGame();
-
-
-
-//const game = new Game();
+var gameOn = null;
+var timerNpCGen = null;
+var timerFireGen = null;
+const game = new Game();
+const time = 2000;
+mainMenu();
 
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
@@ -75,12 +75,13 @@ function Fireman() {
 
 function mainMenu() {
   //ocultar live y points
-  document.getElementById("lifes").style.display ="none";
-  document.getElementById("score").style.display ="none";
+  document.getElementById("lifes").style.display = "none";
+  document.getElementById("score").style.display = "none";
 }
 
-function newGame(){
+function Game() {
   this.fireman = new Fireman();
+  this.fireman.removeNpc();
   this.windows = [
     new windowObj(11),
     new windowObj(12),
@@ -92,16 +93,35 @@ function newGame(){
     new windowObj(32),
     new windowObj(33)
   ];
-  document.getElementById("lifes").style.display ="block";
-  document.getElementById("score").style.display ="block";
-  //this.timerFire = setInterval(generateFire, 2000, newGame.windows);
-  //let timerNpc = setInterval(generateNpc, 2000, newGame.windows);
 }
 
-function endGame(game){
-  clearInterval(game.timerFire);
-  clearInterval(game.timerNpc);
+function setFireTimer(time) {
+  timerFireGen = setInterval(generateFire, time);
+}
+function setNpcTimer(time) {
+  timerNpcGen = setInterval(generateNpc, time);
+}
+function stopFireTimer() {
+  clearInterval(timerFireGen);
+  timerFireGen = null;
+}
+
+function stopNpcTimer() {
+  clearInterval(timerNpCGen);
+  timerNpCGen = null;
+}
+
+function newGame() {
+  document.getElementById("lifes").style.display = "block";
+  document.getElementById("score").style.display = "block";
+  setFireTimer(time);
+  setNpcTimer(time);
+}
+
+function resetGame() {
   let totalPoints = points;
+  stopFireTimer();
+  stopNpcTimer();
   points = 0;
 }
 
@@ -127,41 +147,62 @@ function checkNpc(window, fireman) {
 
 function dropNpc(fireman) {
   fireman.removeNpc();
-  points +=100;
+  points += 100;
   //actualizar contador
 }
 
-function generateNpc(windowsArr) {
-  console.log(windowsArr);
-  let randomNpc = Math.floor(Math.random() * 8);
+function generateNpc() {
+  let randomNpc = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.npc === true;
-  if (windowsArr.every(ISFULL)) {
+  if (game.windows.every(ISFULL)) {
+    stopNpcTimer()
     return;
   }
-  else if (!windowsArr[randomNpc].npc) {
-    windowsArr[randomNpc].setNpc();
+  else if (!game.windows[randomNpc].npc) {
+    game.windows[randomNpc].setNpc();
   }
   else {
-    generateNpc(windowsArr);
+    generateNpc(game.windows);
+  }
+}
+
+//Funcion que vale para generar tanto fuego como npc
+// EN PROCESO?
+function generate(param) {
+  let capitalParam = param.charAt(0).toUpperCase + param.slice(1);
+  console.log(capitalParam);
+  let randomNpc = Math.floor(Math.random() * 9);
+  let ISFULL = (item) => item.param === true;
+  if (game.windows.every(ISFULL)) {
+    stopNpcTimer()
+    return;
+  }
+  else if (!game.windows[randomNpc].param) {
+    game.windows[randomNpc].setNpc();
+  }
+  else {
+    generateNpc(game.windows);
   }
 }
 
 //refactorizar las 2 funciones generateNpc y generateFire, 
 //tened en cuenta que el fuego necesitamos 2 contadores npc y fire
 //el npc le pondremos un math random para que muera a un tiempo 
-function generateFire(windowsArr) {
+function generateFire() {
   let randomFire = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.fire === true;
-  if (windowsArr.every(ISFULL)) {
+  if (game.windows.every(ISFULL)) {
     console.log("GAME OVER");
+
+    resetGame(game);
     return;
   }
-  else if (!windowsArr[randomFire].fire) {
-    windowsArr[randomFire].setFire();
+  else if (!game.windows[randomFire].fire) {
+    game.windows[randomFire].setFire();
     //let timerDuration = setTimeout(windowsArr[randomFire].removeFire, 5000);
   }
   else {
-    generateFire(windowsArr);
+    generateFire(game.windows);
   }
 }
 
@@ -172,14 +213,10 @@ function extinguishFire(windowsArr, fireman) {
   let firemanCol = `col${fireman.col}`;
   for (let i = 0; i < windowsArr.length; i++) {
     if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
-      console.log("Antes" + windowsArr[i]);
       windowsArr[i].removeFire();
-      console.log("Despues" + windowsArr[i]);
     }
   }
 }
-
-
 
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") { game.fireman.move("right") }
@@ -188,21 +225,21 @@ document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowLeft") { game.fireman.move("left") }
   if (event.code === "KeyA") { extinguishFire(game.windows, game.fireman) }
   if (event.code === "Space") { checkWindow(game.windows, game.fireman) }
-  console.log(event.code);
+  //console.log(event.code);
 })
 
-const button = document.getElementById('start')
+const button = document.getElementById('start').querySelector("h2")
 button.addEventListener("click", function (event) {
-    if (!gameOn) {
+  if (gameOn === null) {
     button.innerText = 'Reset'
-    //empezar timers
-    } else {
+    newGame();
+  } else {
     button.innerText = 'Start'
     //funcion reset
-    endGame(game);
+    resetGame(game);
+    gameOn = null;
   }
 })
-
 
 
 
