@@ -24,61 +24,50 @@ body{
 }
 
 #game{
+  background-image:url("../assets/images/canvas.png");
+  display:block;
+  position: relative;
   border:3px solid #FCA311;
   background-color:lightblue;
-  display:block;
   margin:auto;
-  justify-content:center;
   align-items:center;
-  width: 1200px;
+  justify-content:center;
   height: 800px;
-  position: relative;
+  width: 1200px;
 }
 
+/* All ID/divs with Absolute position */
+#score, #lifes, #title,#btnStartStop, #building, #sidewalk, #fireman, .window {
+  position:absolute;
+}
+
+/* Menu / UI -------------------------------------------*/
+/*  Margin right for some UI */
+#scores, #lifes {
+  right:20px;
+}
 #score{
-  position: absolute;
-  right: 20px;
   top: 50px;
 }
 
 #lifes{
-  position: absolute;
-  right: 20px;
   top: 20px;
 }
 
 #title{
-  position: absolute;
   right: 55px;
   top: 310px;
   text-align: center;
-}
+  }
 
 #btnStartStop{
-  position: absolute;
   right: 200px;
   top: 450px;
   text-align: center;
 }
 
-#building{
-  position:absolute;
-  width: calc(var(--window-width)*6);
-  height: calc(var(--window-height)*6);
-  top: 50px;
-  background-color:darkgray;
-}
-
-#sidewalk{
-  position: absolute;
-  width: 1200px;
-  height: 25px;
-  top: 775px;
-  background-color:rgb(109, 105, 105);
-}
-
+/* Fireman ---------------------------------------------*/
 #fireman {
-  position: absolute;
   width: calc(var(--window-width));
   height: calc(var(--window-height));
   z-index: 600;
@@ -91,11 +80,30 @@ body{
   background-color: greenyellow;
  }
 
+/* Sidewalk ---------------------------------------------*/
+#sidewalk{
+  background-image:url("../assets/images/sidewalk.png");
+  width: 1200px;
+  height: 25px;
+  top: 775px;
+  background-color:rgb(109, 105, 105);
+}
+
+/* Building --------------------------------------------*/
+#building{
+  background-image:url("../assets/images/building.png");
+  width: calc(var(--window-width)*6);
+  height: calc(var(--window-height)*6);
+  top: 50px;
+  background-color:darkgray;
+}
+
+/* Windows */
 .window {
+  background-image:url("../assets/images/window.png");
   height: var(--window-height);
   width:  var(--window-width);
-  position: absolute;
-  background-color: blueviolet;
+  background-color:none;
   z-index:300;
 }
 
@@ -109,7 +117,7 @@ body{
   z-index: 500;
 }
 
-
+/* Window Positions */
 .row1 { top: var(--window-height); }
 .row2 { top: calc(var(--window-height)*2 + var(--window-vert-padding)); }
 .row3 { top: calc(var(--window-height)* 3 +  var(--window-vert-padding)*2); }

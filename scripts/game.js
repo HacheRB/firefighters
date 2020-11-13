@@ -1,26 +1,21 @@
 //Variables
 const game = new Game();
 
-
-
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
   this.countNpc = 0;
-  
 
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
     //this.timerDuration = setTimeout(this.removeFire, 5000);
-
   }
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
     //console.log(this.elem);
     this.fire = false;
-
 
   }
   this.setNpc = function () {
@@ -33,15 +28,16 @@ function windowObj(num) {
   }
 
   this.countState = function () {
-  
+    console.log("pendiente");
   }
-  
+
 }
 function Fireman() {
   this.elem = document.getElementById("fireman");
   this.col = 4;
   this.row = 4;
   this.npc = false;
+
   this.setNpc = function () {
     this.elem.classList.remove("withoutNpc");
     this.elem.classList.add("withNpc");
@@ -72,7 +68,6 @@ function Fireman() {
     this.elem.classList.add(`row${this.row}`);
     this.elem.classList.add(`col${this.col}`);
     //this.elem.classList = `row${this.row} col${this.col}`
-
     // if (!fireman.npc) {
     //   this.elem.classList = `row${this.row} col${this.col} withoutNpc`
     // }
@@ -179,7 +174,6 @@ function extinguishFire(windowsArr, fireman) {
       windowsArr[i].removeFire();
       console.log("Despues" + windowsArr[i]);
     }
-
   }
 }
 
