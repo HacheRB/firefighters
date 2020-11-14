@@ -18,20 +18,24 @@ function windowObj(num) {
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
-    //this.timerDuration = setTimeout(this.removeFire, 5000);
+    this.npcBurning();
   }
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
-    //console.log(this.elem);
     this.fire = false;
+    clearTimeout(this.timerNpcBurning);
+    this.timerNpcBurning = null;
   }
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
     this.npc = true;
+    this.npcBurning();
   }
   this.removeNpc = function () {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
+    clearTimeout(this.timerNpcBurning);
+    this.timerNpcBurning = null;
   }
   this.resetWindow = function () {
     this.removeFire();
@@ -39,18 +43,20 @@ function windowObj(num) {
   }
   this.npcBurning = function () {
     if (this.npc && this.fire){
-      this.timerNpcBurning = setTimeout(npcDies, 10000)
-    
+      this.timerNpcBurning = setTimeout(this.npcDies, 1000);
     }
-    //a los 10 segundos que este ardiendo el npc pierde 1 vida de 5
-    //controlar que con 0 vidas game over 
   }
   this.npcDies = function(){
     //sonido de muerte 
+    console.log(" muerte un npc");
     this.removeNpc();
     lifes--;
     updateLifes();
-  }
+    if (lifes <= 0){
+      resetGame(game);
+      return
+    }
+  }.bind(this); //
 }
 
 function updateScore (){
@@ -97,9 +103,13 @@ function Fireman() {
     this.elem.classList.add(`col${this.col}`);
   }
     this.resetFireman = function(){
+      this.elem.classList.remove(`row${this.row}`);
+      this.elem.classList.remove(`col${this.col}`); 
       this.row = 4;
       this.col = 4;
       this.removeNpc();
+      this.elem.classList.add(`row${this.row}`);
+      this.elem.classList.add(`col${this.col}`);
     }
 }
 
@@ -142,14 +152,18 @@ function stopNpcTimer() {
 }
 
 function newGame() {
+  game.fireman.resetFireman();
   document.getElementById("lifes").style.display = "block";
   document.getElementById("score").style.display = "block";
   setFireTimer(time);
   setNpcTimer(time);
+
+
 }
 
 function resetGame(game) {
   let totalPoints = points;
+  console.log("game over - reset")
   stopFireTimer();
   stopNpcTimer();
   game.fireman.resetFireman();
@@ -158,6 +172,7 @@ function resetGame(game) {
 
   }
   points = 0;
+  lifes = 5;
   document.getElementById("score").querySelector("h2").innerHTML =`Points : ${points}`;
 }
 
@@ -234,8 +249,6 @@ function generateFire() {
   let randomFire = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.fire === true;
   if (game.windows.every(ISFULL)) {
-    console.log("GAME OVER");
-
     resetGame(game);
     return;
   }
