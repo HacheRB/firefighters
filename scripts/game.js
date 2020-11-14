@@ -13,7 +13,6 @@ function windowObj(num) {
   this.npc = false;
   this.fire = false;
   this.timerNpcBurning = null;
-  
 
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
@@ -23,8 +22,8 @@ function windowObj(num) {
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
     this.fire = false;
-    clearTimeout(this.timerNpcBurning);
-    this.timerNpcBurning = null;
+    console.log(stopNpcTimer());
+    stopNpcTimer();
   }
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
@@ -34,37 +33,28 @@ function windowObj(num) {
   this.removeNpc = function () {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
-    clearTimeout(this.timerNpcBurning);
-    this.timerNpcBurning = null;
+    stopNpcTimer();
   }
   this.resetWindow = function () {
     this.removeFire();
     this.removeNpc();
   }
   this.npcBurning = function () {
-    if (this.npc && this.fire){
+    if (this.npc && this.fire) {
       this.timerNpcBurning = setTimeout(this.npcDies, 1000);
     }
   }
-  this.npcDies = function(){
+  this.npcDies = function () {
     //sonido de muerte 
     console.log(" muerte un npc");
     this.removeNpc();
     lifes--;
     updateLifes();
-    if (lifes <= 0){
+    if (lifes <= 0) {
       resetGame(game);
-      return
+      return;
     }
   }.bind(this); //
-}
-
-function updateScore (){
-  document.getElementById("score").querySelector("h2").innerHTML =`Points : ${points}`;
-}
-
-function updateLifes (){
-  document.getElementById("lifes").querySelector("h2").innerHTML =`Lifes left : ${lifes}`;
 }
 
 function Fireman() {
@@ -102,15 +92,23 @@ function Fireman() {
     this.elem.classList.add(`row${this.row}`);
     this.elem.classList.add(`col${this.col}`);
   }
-    this.resetFireman = function(){
-      this.elem.classList.remove(`row${this.row}`);
-      this.elem.classList.remove(`col${this.col}`); 
-      this.row = 4;
-      this.col = 4;
-      this.removeNpc();
-      this.elem.classList.add(`row${this.row}`);
-      this.elem.classList.add(`col${this.col}`);
-    }
+  this.resetFireman = function () {
+    this.elem.classList.remove(`row${this.row}`);
+    this.elem.classList.remove(`col${this.col}`);
+    this.row = 4;
+    this.col = 4;
+    this.removeNpc();
+    this.elem.classList.add(`row${this.row}`);
+    this.elem.classList.add(`col${this.col}`);
+  }
+}
+
+function updateScore() {
+  document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
+}
+
+function updateLifes() {
+  document.getElementById("lifes").querySelector("h2").innerHTML = `Lifes left : ${lifes}`;
 }
 
 function mainMenu() {
@@ -157,23 +155,22 @@ function newGame() {
   document.getElementById("score").style.display = "block";
   setFireTimer(time);
   setNpcTimer(time);
-
-
 }
 
 function resetGame(game) {
   let totalPoints = points;
   console.log("game over - reset")
-  stopFireTimer();
   stopNpcTimer();
+  stopFireTimer();
   game.fireman.resetFireman();
-  for (let i = 0; i < game.windows.length; i++ ){
+  for (let i = 0; i < game.windows.length; i++) {
     game.windows[i].resetWindow();
-
   }
   points = 0;
   lifes = 5;
-  document.getElementById("score").querySelector("h2").innerHTML =`Points : ${points}`;
+  document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
+  document.getElementById("lifes").style.display = "none";
+  document.getElementById("score").style.display = "none";
 }
 
 function checkWindow(windowsArr, fireman) {
@@ -198,43 +195,22 @@ function checkNpc(window, fireman) {
 
 function dropNpc(fireman) {
   fireman.removeNpc();
- 
   addPoints();
 }
 
-function addPoints(){
+function addPoints() {
   points += 100;
   updateScore();
 }
-
 
 function generateNpc() {
   let randomNpc = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.npc === true;
   if (game.windows.every(ISFULL)) {
-    stopNpcTimer()
+    stopNpcTimer();
     return;
   }
   else if (!game.windows[randomNpc].npc) {
-    game.windows[randomNpc].setNpc();
-  }
-  else {
-    generateNpc(game.windows);
-  }
-}
-
-//Funcion que vale para generar tanto fuego como npc
-// EN PROCESO?
-function generate(param) {
-  let capitalParam = param.charAt(0).toUpperCase + param.slice(1);
-  console.log(capitalParam);
-  let randomNpc = Math.floor(Math.random() * 9);
-  let ISFULL = (item) => item.param === true;
-  if (game.windows.every(ISFULL)) {
-    stopNpcTimer()
-    return;
-  }
-  else if (!game.windows[randomNpc].param) {
     game.windows[randomNpc].setNpc();
   }
   else {
@@ -254,7 +230,6 @@ function generateFire() {
   }
   else if (!game.windows[randomFire].fire) {
     game.windows[randomFire].setFire();
-    //let timerDuration = setTimeout(windowsArr[randomFire].removeFire, 5000);
   }
   else {
     generateFire(game.windows);
@@ -282,15 +257,15 @@ document.addEventListener("keydown", function (event) {
 })
 
 const button = document.getElementById('start').querySelector("h2")
-
 button.addEventListener("click", function (event) {
   if (!gameOn) {
-    button.innerText = 'Reset'
+    console.log(!gameOn + " if");
+    button.innerText = 'End'
     gameOn = true;
     newGame();
   } else {
+    console.log(gameOn + " else")
     button.innerText = 'Start'
-    //funcion reset
     resetGame(game);
     gameOn = false;
   }
