@@ -1,5 +1,6 @@
 //Variables
 var points = 0;
+var lifes = 5;
 var gameOn = false;
 var timerNpCGen = null;
 var timerFireGen = null;
@@ -11,7 +12,8 @@ function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.npc = false;
   this.fire = false;
-  this.countNpc = 0;
+  this.timerNpcBurning = null;
+  
 
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
@@ -31,11 +33,34 @@ function windowObj(num) {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
   }
-  this.countState = function () {
-    console.log("pendiente");
+  this.resetWindow = function () {
+    this.removeFire();
+    this.removeNpc();
   }
-
+  this.npcBurning = function () {
+    if (this.npc && this.fire){
+      this.timerNpcBurning = setTimeout(npcDies, 10000)
+    
+    }
+    //a los 10 segundos que este ardiendo el npc pierde 1 vida de 5
+    //controlar que con 0 vidas game over 
+  }
+  this.npcDies = function(){
+    //sonido de muerte 
+    this.removeNpc();
+    lifes--;
+    updateLifes();
+  }
 }
+
+function updateScore (){
+  document.getElementById("score").querySelector("h2").innerHTML =`Points : ${points}`;
+}
+
+function updateLifes (){
+  document.getElementById("lifes").querySelector("h2").innerHTML =`Lifes left : ${lifes}`;
+}
+
 function Fireman() {
   this.elem = document.getElementById("fireman");
   this.col = 4;
@@ -71,6 +96,11 @@ function Fireman() {
     this.elem.classList.add(`row${this.row}`);
     this.elem.classList.add(`col${this.col}`);
   }
+    this.resetFireman = function(){
+      this.row = 4;
+      this.col = 4;
+      this.removeNpc();
+    }
 }
 
 function mainMenu() {
@@ -118,13 +148,17 @@ function newGame() {
   setNpcTimer(time);
 }
 
-function resetGame() {
-  delete game;
+function resetGame(game) {
   let totalPoints = points;
   stopFireTimer();
   stopNpcTimer();
+  game.fireman.resetFireman();
+  for (let i = 0; i < game.windows.length; i++ ){
+    game.windows[i].resetWindow();
+
+  }
   points = 0;
-  //reset a mano con for
+  document.getElementById("score").querySelector("h2").innerHTML =`Points : ${points}`;
 }
 
 function checkWindow(windowsArr, fireman) {
@@ -149,9 +183,15 @@ function checkNpc(window, fireman) {
 
 function dropNpc(fireman) {
   fireman.removeNpc();
-  points += 100;
-  //actualizar contador
+ 
+  addPoints();
 }
+
+function addPoints(){
+  points += 100;
+  updateScore();
+}
+
 
 function generateNpc() {
   let randomNpc = Math.floor(Math.random() * 9);
@@ -207,9 +247,7 @@ function generateFire() {
     generateFire(game.windows);
   }
 }
-
-//funcion añada fuego a celdas que tienen NPC,
-
+//funcion añada fuego a celdas que tienen NPC
 function extinguishFire(windowsArr, fireman) {
   let firemanRow = `row${fireman.row}`;
   let firemanCol = `col${fireman.col}`;
@@ -231,6 +269,7 @@ document.addEventListener("keydown", function (event) {
 })
 
 const button = document.getElementById('start').querySelector("h2")
+
 button.addEventListener("click", function (event) {
   if (!gameOn) {
     button.innerText = 'Reset'
