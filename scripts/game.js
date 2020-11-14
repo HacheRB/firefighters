@@ -1,6 +1,6 @@
 //Variables
 var points = 0;
-var gameOn = null;
+var gameOn = false;
 var timerNpCGen = null;
 var timerFireGen = null;
 const game = new Game();
@@ -119,10 +119,12 @@ function newGame() {
 }
 
 function resetGame() {
+  delete game;
   let totalPoints = points;
   stopFireTimer();
   stopNpcTimer();
   points = 0;
+  //reset a mano con for
 }
 
 function checkWindow(windowsArr, fireman) {
@@ -230,14 +232,15 @@ document.addEventListener("keydown", function (event) {
 
 const button = document.getElementById('start').querySelector("h2")
 button.addEventListener("click", function (event) {
-  if (gameOn === null) {
+  if (!gameOn) {
     button.innerText = 'Reset'
+    gameOn = true;
     newGame();
   } else {
     button.innerText = 'Start'
     //funcion reset
     resetGame(game);
-    gameOn = null;
+    gameOn = false;
   }
 })
 
