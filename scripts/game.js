@@ -6,129 +6,9 @@ var gameOn = false;
 var lifes = 5;
 var points = 0;
 var timerFireGen = null;
-var timerNpCGen = null;
+var timerNpcGen = null;
 
 mainMenu();
-
-//OBJETO WINDOW
-function windowObj(num) {
-  this.elem = document.getElementById('window' + num);
-  this.fire = false;
-  this.npc = false;
-  this.timerNpcBurning = null;
-  this.setFire = function () {
-    this.elem.classList.add("fireOnWindow");
-    this.fire = true;
-    this.npcBurning();
-  }
-  this.removeFire = function () {
-    this.elem.classList.remove("fireOnWindow");
-    this.fire = false;
-    console.log(stopNpcTimer());  // ESTO DA UNDEFINED
-    stopNpcTimer();
-  }
-  this.setNpc = function () {
-    this.elem.classList.add("npcOnWindow");
-    this.npc = true;
-    this.npcBurning();
-  }
-  this.removeNpc = function () {
-    this.elem.classList.remove("npcOnWindow");
-    this.npc = false;
-    stopNpcTimer();
-  }
-  this.resetWindow = function () {
-    this.removeFire();
-    this.removeNpc();
-  }
-  this.npcBurning = function () {
-    if (this.npc && this.fire) {
-      this.timerNpcBurning = setTimeout(this.npcDies, 1000);
-    }
-  }
-  this.npcDies = function () {
-    //sonido de muerte 
-    console.log(" muerte un npc");
-    this.removeNpc();
-    lifes--;
-    updateLifes(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
-    if (lifes <= 0) {
-      resetGame(game);// GLOBAL SCOPE, CUIDADO AL MOVERLA
-      return;
-    }
-  }.bind(this); //
-}
-
-function Fireman() {
-  this.elem = document.getElementById("fireman");
-  this.col = 4;
-  this.row = 4;
-  this.npc = false;
-
-  this.setNpc = function () {
-    this.elem.classList.remove("withoutNpc");
-    this.elem.classList.add("withNpc");
-    this.npc = true;
-  }
-  this.removeNpc = function () {
-    this.elem.classList.remove("withNpc");
-    this.elem.classList.add("withoutNpc");
-    this.npc = false;
-  }
-
-  this.removePosition = function () {
-    this.elem.classList.remove(`row${this.row}`);
-    this.elem.classList.remove(`col${this.col}`);
-  }
-
-  this.addPosition = function () {
-    this.elem.classList.add(`row${this.row}`);
-    this.elem.classList.add(`col${this.col}`);
-  }
-
-  this.move = function (dir) {
-    this.removePosition();
-
-    if (dir === "right" && this.col < 4) {
-      this.col++;
-    }
-    if (dir === "up" && this.row > 1) {
-      this.row--;
-    }
-    if (dir === "left" && this.col > 1) {
-      this.col--;
-    }
-    if (dir === "down" && this.row < 4) {
-      this.row++;
-    }
-    this.addPosition();
-  }
-
-  this.resetFireman = function () {
-    this.removePosition();
-    this.row = 4;
-    this.col = 4;
-    this.removeNpc();
-    this.addPosition();
-  }
-
-  // ANTERIORMENTE - > SCOPE GLOBAL // SUPUESTAMENTE FUNCIONANDO YA
-  this.checkNpc = function (window) {
-    if (window.npc && !this.npc) {
-      window.removeNpc();
-      this.setNpc();
-    }
-  }
-
-  this.dropNpc = function () {
-    this.removeNpc();
-    this.addPoints();
-  }
-  this.addPoints = function () {
-    points += 100;
-    updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
-  }
-}
 
 // FUNCTION GAME
 function Game() {
@@ -162,23 +42,23 @@ function mainMenu() {
   document.getElementById("score").style.display = "none";
 }
 
-function setFireTimer(time) {
-  timerFireGen = setInterval(generateFire, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
-}
-
 function setNpcTimer(time) {
   timerNpcGen = setInterval(generateNpc, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+}
+
+//ESTO ES UNDEFINED; BUG 
+function stopNpcTimer() {
+  clearInterval(timerNpcGen);
+  timerNpcGen = null;
+}
+
+function setFireTimer(time) {
+  timerFireGen = setInterval(generateFire, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
 
 function stopFireTimer() {
   clearInterval(timerFireGen);
   timerFireGen = null;
-}
-
-//ESTO ES UNDEFINED; BUG 
-function stopNpcTimer() {
-  clearInterval(timerNpCGen);
-  timerNpCGen = null;
 }
 
 function newGame() {
