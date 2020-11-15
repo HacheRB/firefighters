@@ -123,6 +123,25 @@ body{
   z-index: 500;
 }
 
+.windowTemp {
+  z-index: 550;
+  position: absolute;
+
+}
+
+.fire{
+ 
+  z-index: 600;
+  position: absolute;
+}
+
+.npc{
+  z-index: 650;
+  position: absolute;
+}
+
+
+
 /* Window Positions */
 .row1 { top: var(--window-height); }
 .row2 { top: calc(var(--window-height)*2 + var(--window-vert-padding)); }
