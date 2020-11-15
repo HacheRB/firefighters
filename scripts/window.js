@@ -45,6 +45,7 @@ function windowObj(num) {
     lifes--;
     updateLifes(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
     if (lifes <= 0) {
+      setButtonStart();
       resetGame(game);// GLOBAL SCOPE, CUIDADO AL MOVERLA
       return;
     }

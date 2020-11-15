@@ -130,6 +130,7 @@ function generateNpc() {
   let ISFULL = (item) => item.npc === true;
   if (game.windows.every(ISFULL)) {
     stopNpcTimer();
+    
     return;
   }
   else if (!game.windows[randomNpc].npc) {
@@ -144,6 +145,7 @@ function generateFire() {
   let randomFire = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.fire === true;
   if (game.windows.every(ISFULL)) {
+    setButtonStart();
     resetGame(game);
     return;
   }
@@ -176,8 +178,12 @@ document.addEventListener("keydown", function (event) {
   //console.log(event.code);
 })
 
+
+
+
 const button = document.getElementById('start').querySelector("h2")
-button.addEventListener("click", function (event) {
+
+button.addEventListener("click", function() {
   if (!gameOn) {
     console.log(!gameOn + " if");
     button.innerText = 'End'
@@ -190,5 +196,10 @@ button.addEventListener("click", function (event) {
     gameOn = false;
   }
 })
+
+function setButtonStart(){
+  button.innerText = 'Start';
+  gameOn = false; 
+}
 
 
