@@ -5,11 +5,13 @@ function windowObj(num) {
   this.npc = false;
   this.timerNpcBurning = null;
   this.setFire = function () {
+    this.elem.querySelector(".fire").style.display = "block";
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
     this.npcBurning();
   }
   this.removeFire = function () {
+    this.elem.querySelector(".fire").style.display = "none";
     this.elem.classList.remove("fireOnWindow");
     this.fire = false;
     this.stopNpcBurning();

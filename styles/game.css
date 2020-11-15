@@ -126,18 +126,19 @@ body{
 .windowTemp {
   z-index: 550;
   position: absolute;
-
+ 
 }
 
 .fire{
- 
   z-index: 600;
   position: absolute;
+  display: none;
 }
 
 .npc{
   z-index: 650;
   position: absolute;
+  display: none;
 }
 
 
