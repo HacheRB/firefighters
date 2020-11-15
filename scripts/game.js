@@ -1,19 +1,21 @@
 //Variables
-var points = 0;
-var lifes = 5;
-var gameOn = false;
-var timerNpCGen = null;
-var timerFireGen = null;
 const game = new Game();
 const time = 2000;
+
+var gameOn = false;
+var lifes = 5;
+var points = 0;
+var timerFireGen = null;
+var timerNpCGen = null;
+
 mainMenu();
 
+//OBJETO WINDOW
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
-  this.npc = false;
   this.fire = false;
+  this.npc = false;
   this.timerNpcBurning = null;
-
   this.setFire = function () {
     this.elem.classList.add("fireOnWindow");
     this.fire = true;
@@ -22,7 +24,7 @@ function windowObj(num) {
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
     this.fire = false;
-    console.log(stopNpcTimer());
+    console.log(stopNpcTimer());  // ESTO DA UNDEFINED
     stopNpcTimer();
   }
   this.setNpc = function () {
@@ -49,9 +51,9 @@ function windowObj(num) {
     console.log(" muerte un npc");
     this.removeNpc();
     lifes--;
-    updateLifes();
+    updateLifes(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
     if (lifes <= 0) {
-      resetGame(game);
+      resetGame(game);// GLOBAL SCOPE, CUIDADO AL MOVERLA
       return;
     }
   }.bind(this); //
@@ -73,9 +75,19 @@ function Fireman() {
     this.elem.classList.add("withoutNpc");
     this.npc = false;
   }
-  this.move = function (dir) {
+
+  this.removePosition = function () {
     this.elem.classList.remove(`row${this.row}`);
     this.elem.classList.remove(`col${this.col}`);
+  }
+
+  this.addPosition = function () {
+    this.elem.classList.add(`row${this.row}`);
+    this.elem.classList.add(`col${this.col}`);
+  }
+
+  this.move = function (dir) {
+    this.removePosition();
 
     if (dir === "right" && this.col < 4) {
       this.col++;
@@ -89,34 +101,36 @@ function Fireman() {
     if (dir === "down" && this.row < 4) {
       this.row++;
     }
-    this.elem.classList.add(`row${this.row}`);
-    this.elem.classList.add(`col${this.col}`);
+    this.addPosition();
   }
+
   this.resetFireman = function () {
-    this.elem.classList.remove(`row${this.row}`);
-    this.elem.classList.remove(`col${this.col}`);
+    this.removePosition();
     this.row = 4;
     this.col = 4;
     this.removeNpc();
-    this.elem.classList.add(`row${this.row}`);
-    this.elem.classList.add(`col${this.col}`);
+    this.addPosition();
+  }
+
+  // ANTERIORMENTE - > SCOPE GLOBAL // SUPUESTAMENTE FUNCIONANDO YA
+  this.checkNpc = function (window) {
+    if (window.npc && !this.npc) {
+      window.removeNpc();
+      this.setNpc();
+    }
+  }
+
+  this.dropNpc = function () {
+    this.removeNpc();
+    this.addPoints();
+  }
+  this.addPoints = function () {
+    points += 100;
+    updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
   }
 }
 
-function updateScore() {
-  document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
-}
-
-function updateLifes() {
-  document.getElementById("lifes").querySelector("h2").innerHTML = `Lifes left : ${lifes}`;
-}
-
-function mainMenu() {
-  //ocultar live y points
-  document.getElementById("lifes").style.display = "none";
-  document.getElementById("score").style.display = "none";
-}
-
+// FUNCTION GAME
 function Game() {
   this.fireman = new Fireman();
   this.fireman.removeNpc();
@@ -132,18 +146,36 @@ function Game() {
     new windowObj(33)
   ];
 }
+// ESTO IRIA DENTRO DE GAME --------------------------------------------------------------
+
+function updateScore() {
+  document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
+}
+
+function updateLifes() {
+  document.getElementById("lifes").querySelector("h2").innerHTML = `Lifes left : ${lifes}`;
+}
+
+function mainMenu() {
+  //ocultar live y points
+  document.getElementById("lifes").style.display = "none";
+  document.getElementById("score").style.display = "none";
+}
 
 function setFireTimer(time) {
-  timerFireGen = setInterval(generateFire, time);
+  timerFireGen = setInterval(generateFire, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
+
 function setNpcTimer(time) {
-  timerNpcGen = setInterval(generateNpc, time);
+  timerNpcGen = setInterval(generateNpc, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
+
 function stopFireTimer() {
   clearInterval(timerFireGen);
   timerFireGen = null;
 }
 
+//ESTO ES UNDEFINED; BUG 
 function stopNpcTimer() {
   clearInterval(timerNpCGen);
   timerNpCGen = null;
@@ -153,54 +185,40 @@ function newGame() {
   game.fireman.resetFireman();
   document.getElementById("lifes").style.display = "block";
   document.getElementById("score").style.display = "block";
-  setFireTimer(time);
-  setNpcTimer(time);
+  setFireTimer(time);// GLOBAL SCOPE, CUIDADO AL MOVERLA
+  setNpcTimer(time);  // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
 
 function resetGame(game) {
   let totalPoints = points;
   console.log("game over - reset")
-  stopNpcTimer();
-  stopFireTimer();
+  stopNpcTimer();  // GLOBAL SCOPE, CUIDADO AL MOVERLA
+  stopFireTimer(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
   game.fireman.resetFireman();
   for (let i = 0; i < game.windows.length; i++) {
     game.windows[i].resetWindow();
   }
-  points = 0;
   lifes = 5;
+  points = 0;
   document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
   document.getElementById("lifes").style.display = "none";
   document.getElementById("score").style.display = "none";
 }
 
-function checkWindow(windowsArr, fireman) {
-  let firemanRow = `row${fireman.row}`;
-  let firemanCol = `col${fireman.col}`;
-  for (let i = 0; i < windowsArr.length; i++) {
-    if ((windowsArr[i].elem.classList.contains(firemanRow)) && (windowsArr[i].elem.classList.contains(firemanCol))) {
-      checkNpc(windowsArr[i], fireman);
+// ESTO IRIA DENTRO DE GAME --------------------------------------------------------------
+
+
+function checkWindow(game) {
+  let firemanRow = `row${game.fireman.row}`;
+  let firemanCol = `col${game.fireman.col}`;
+  for (let i = 0; i < game.windows.length; i++) {
+    if ((game.windows[i].elem.classList.contains(firemanRow)) && (game.windows[i].elem.classList.contains(firemanCol))) {
+      game.fireman.checkNpc(game.windows[i]);
     }
-    if (fireman.row === 4 && fireman.npc) {
-      dropNpc(fireman);
+    if (game.fireman.row === 4 && game.fireman.npc) {
+      game.fireman.dropNpc();
     }
   }
-}
-
-function checkNpc(window, fireman) {
-  if (window.npc && !fireman.npc) {
-    window.removeNpc();
-    fireman.setNpc();
-  }
-}
-
-function dropNpc(fireman) {
-  fireman.removeNpc();
-  addPoints();
-}
-
-function addPoints() {
-  points += 100;
-  updateScore();
 }
 
 function generateNpc() {
@@ -218,9 +236,6 @@ function generateNpc() {
   }
 }
 
-//refactorizar las 2 funciones generateNpc y generateFire, 
-//tened en cuenta que el fuego necesitamos 2 contadores npc y fire
-//el npc le pondremos un math random para que muera a un tiempo 
 function generateFire() {
   let randomFire = Math.floor(Math.random() * 9);
   let ISFULL = (item) => item.fire === true;
@@ -235,7 +250,7 @@ function generateFire() {
     generateFire(game.windows);
   }
 }
-//funcion añada fuego a celdas que tienen NPC
+
 function extinguishFire(windowsArr, fireman) {
   let firemanRow = `row${fireman.row}`;
   let firemanCol = `col${fireman.col}`;
@@ -246,13 +261,14 @@ function extinguishFire(windowsArr, fireman) {
   }
 }
 
+//EVENT LISTENERS 
 document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowRight") { game.fireman.move("right") }
   if (event.code === "ArrowUp") { game.fireman.move("up") }
   if (event.code === "ArrowDown") { game.fireman.move("down") }
   if (event.code === "ArrowLeft") { game.fireman.move("left") }
   if (event.code === "KeyA") { extinguishFire(game.windows, game.fireman) }
-  if (event.code === "Space") { checkWindow(game.windows, game.fireman) }
+  if (event.code === "Space") { checkWindow(game) }
   //console.log(event.code);
 })
 
@@ -270,19 +286,5 @@ button.addEventListener("click", function (event) {
     gameOn = false;
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
