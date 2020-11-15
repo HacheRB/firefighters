@@ -57,10 +57,12 @@ body{
 }
 
 #title{
+  display:inline;
   right: 55px;
   top: 310px;
   text-align: center;
   font-size: 0.2;
+  width:475px;
 
   }
 

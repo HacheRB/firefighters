@@ -5,6 +5,7 @@ const time = 2000;
 var gameOn = false;
 var lifes = 5;
 var points = 0;
+var totalPoints = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
 
@@ -45,10 +46,25 @@ function showUi() {
   document.getElementById("lifes").style.display = "block";
   document.getElementById("score").style.display = "block";
 }
+
 function hideUi() {
   document.getElementById("lifes").style.display = "none";
   document.getElementById("score").style.display = "none";
 }
+function showTitle() {
+  var title = document.getElementById("title");
+  console.log(title)
+  title.style.display = "block";
+  var header = title.querySelector("h1");
+  console.log(header);
+  header.innerText = `GAME OVER!
+    You got ${points} points!`;
+}
+
+function hideTitle() {
+  document.getElementById("title").style.display = "none";
+}
+
 
 function setNpcTimer(time) {
   timerNpcGen = setInterval(generateNpc, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
@@ -71,13 +87,13 @@ function stopFireTimer() {
 function newGame() {
   game.fireman.resetFireman();
   showUi();
+  hideTitle();
   setFireTimer(time);// GLOBAL SCOPE, CUIDADO AL MOVERLA
   setNpcTimer(time);  // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
 
 function resetGame(game) {
-  let totalPoints = points;
-  console.log("game over - reset")
+  totalPoints = points;
   stopNpcTimer();  // GLOBAL SCOPE, CUIDADO AL MOVERLA
   stopFireTimer(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
   game.fireman.resetFireman();
@@ -85,10 +101,12 @@ function resetGame(game) {
     game.windows[i].resetWindow();
   }
   lifes = 5;
-  points = 0;
   updateLifes();
   updateScore();
   hideUi();
+  showTitle();
+  points = 0;
+
 }
 
 // ESTO IRIA DENTRO DE GAME --------------------------------------------------------------
