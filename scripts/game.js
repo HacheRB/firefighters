@@ -41,6 +41,14 @@ function mainMenu() {
   document.getElementById("lifes").style.display = "none";
   document.getElementById("score").style.display = "none";
 }
+function showUi() {
+  document.getElementById("lifes").style.display = "block";
+  document.getElementById("score").style.display = "block";
+}
+function hideUi() {
+  document.getElementById("lifes").style.display = "none";
+  document.getElementById("score").style.display = "none";
+}
 
 function setNpcTimer(time) {
   timerNpcGen = setInterval(generateNpc, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
@@ -62,8 +70,7 @@ function stopFireTimer() {
 
 function newGame() {
   game.fireman.resetFireman();
-  document.getElementById("lifes").style.display = "block";
-  document.getElementById("score").style.display = "block";
+  showUi();
   setFireTimer(time);// GLOBAL SCOPE, CUIDADO AL MOVERLA
   setNpcTimer(time);  // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
@@ -79,9 +86,9 @@ function resetGame(game) {
   }
   lifes = 5;
   points = 0;
-  document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
-  document.getElementById("lifes").style.display = "none";
-  document.getElementById("score").style.display = "none";
+  updateLifes();
+  updateScore();
+  hideUi();
 }
 
 // ESTO IRIA DENTRO DE GAME --------------------------------------------------------------
@@ -111,7 +118,7 @@ function generateNpc() {
     game.windows[randomNpc].setNpc();
   }
   else {
-    generateNpc;
+    generateNpc();
   }
 }
 

@@ -12,8 +12,7 @@ function windowObj(num) {
   this.removeFire = function () {
     this.elem.classList.remove("fireOnWindow");
     this.fire = false;
-    console.log(stopNpcTimer());  // ESTO DA UNDEFINED
-    stopNpcTimer();
+    this.stopNpcBurning();
   }
   this.setNpc = function () {
     this.elem.classList.add("npcOnWindow");
@@ -23,12 +22,17 @@ function windowObj(num) {
   this.removeNpc = function () {
     this.elem.classList.remove("npcOnWindow");
     this.npc = false;
-    stopNpcTimer();
+    this.stopNpcBurning();
   }
   this.resetWindow = function () {
     this.removeFire();
     this.removeNpc();
   }
+  this.stopNpcBurning = function () {
+    clearTimeout(this.timerNpcBurning);
+    this.timerNpcBurning = null;
+  }
+
   this.npcBurning = function () {
     if (this.npc && this.fire) {
       this.timerNpcBurning = setTimeout(this.npcDies, 1000);
