@@ -15,6 +15,21 @@ function Fireman() {
     this.elem.classList.add("withoutNpc");
     this.npc = false;
   }
+  this.checkNpc = function (window) {
+    if (window.npc && !this.npc) {
+      window.removeNpc();
+      this.setNpc();
+    }
+  }
+
+  this.dropNpc = function () {
+    this.removeNpc();
+    this.addPoints();
+  }
+  this.addPoints = function () {
+    points += 100;
+    updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+  }
 
   this.removePosition = function () {
     this.elem.classList.remove(`row${this.row}`);
@@ -52,20 +67,5 @@ function Fireman() {
     this.addPosition();
   }
 
-  // ANTERIORMENTE - > SCOPE GLOBAL // SUPUESTAMENTE FUNCIONANDO YA
-  this.checkNpc = function (window) {
-    if (window.npc && !this.npc) {
-      window.removeNpc();
-      this.setNpc();
-    }
-  }
 
-  this.dropNpc = function () {
-    this.removeNpc();
-    this.addPoints();
-  }
-  this.addPoints = function () {
-    points += 100;
-    updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
-  }
 }

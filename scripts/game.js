@@ -46,7 +46,6 @@ function setNpcTimer(time) {
   timerNpcGen = setInterval(generateNpc, time); // GLOBAL SCOPE, CUIDADO AL MOVERLA
 }
 
-//ESTO ES UNDEFINED; BUG 
 function stopNpcTimer() {
   clearInterval(timerNpcGen);
   timerNpcGen = null;
@@ -112,7 +111,7 @@ function generateNpc() {
     game.windows[randomNpc].setNpc();
   }
   else {
-    generateNpc(game.windows);
+    generateNpc;
   }
 }
 
