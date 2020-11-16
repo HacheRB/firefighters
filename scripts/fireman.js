@@ -1,4 +1,4 @@
-// Constructor Objeto Fireman
+// Fireman Constructor
 
 function Fireman() {
   this.elem = document.getElementById("fireman");
@@ -16,6 +16,7 @@ function Fireman() {
     this.elem.classList.add("withoutNpc");
     this.npc = false;
   }
+  //Checks if windows has npc and fireman doesn´t 
   this.checkNpc = function (window) {
     if (window.npc && !this.npc) {
       window.removeNpc();

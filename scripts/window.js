@@ -1,4 +1,4 @@
-// Constructor Objeto Window
+// Window Constructor
 
 function windowObj(num) {
   this.elem = document.getElementById('window' + num);
@@ -50,7 +50,7 @@ function windowObj(num) {
     if (lifes <= 0) {
       game.setButtonStart();
       game.resetGame();// GLOBAL SCOPE, CUIDADO AL MOVERLA
-      return;
+      return; //
     }
   }.bind(this);
 
