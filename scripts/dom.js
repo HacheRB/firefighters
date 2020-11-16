@@ -2,6 +2,7 @@
 const game = new Game();
 const time = 2000;
 
+
 var gameOn = false;
 var lifes = 5;
 var points = 0;
@@ -10,6 +11,7 @@ var timerFireGen = null;
 var timerNpcGen = null;
 game.mainMenu();
 
+var sound1 = document.getElementById("fire1");
 
 //EVENT LISTENERS 
 document.addEventListener("keydown", function (event) {
@@ -27,11 +29,13 @@ document.addEventListener("keydown", function (event) {
 const button = document.getElementById('start').querySelector("h2")
 button.addEventListener("click", function (event) {
   if (!gameOn) {
+    playSound("pauseIn",0.1);
     console.log(!gameOn + " if");
     button.innerText = 'End'
     gameOn = true;
     game.newGame();
   } else {
+    playSound("pauseIn", 0.1);
     console.log(gameOn + " else")
     button.innerText = 'Start'
     game.resetGame(game);

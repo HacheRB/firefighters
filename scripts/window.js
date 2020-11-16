@@ -5,17 +5,35 @@ function windowObj(num) {
   this.fire = false;
   this.npc = false;
   this.timerNpcBurning = null;
+  this.timerfireBurning = null;
+
+  this.fireBurning = function () {
+      
+      this.timerfireBurning = setTimeout(playSound("fire1", 0.1),0);
+
+
+    
+  }
+
+  this.stopFireBurning = function () {
+    clearTimeout(this.timerNpcBurning);
+    this.timerNpcBurning = null;
+  }
+
 
   this.setFire = function () {
+    this.fireBurning = loopSound("fire1", 0.1);
     this.elem.querySelector(".fire").style.display = "block";
     this.fire = true;
     this.npcBurning();
   }
 
   this.removeFire = function () {
-    this.elem.querySelector(".fire").style.display = "none";
+    this.elem.querySelector(".fire").style.
+    display = "none";
     this.fire = false;
     this.stopNpcBurning();
+    this.stopFireBurning();
   }
 
   this.setNpc = function () {
@@ -43,7 +61,7 @@ function windowObj(num) {
 
   //Mover a game
   this.npcDies = function () {
-    //sonido de muerte 
+    playSound("npcMuere", 0.1);
     console.log(" muerte un npc");
     this.removeNpc();
     lifes--;
@@ -56,7 +74,9 @@ function windowObj(num) {
   }.bind(this);
 
   this.resetWindow = function () {
+    
     this.removeFire();
     this.removeNpc();
+    
   }
 }
