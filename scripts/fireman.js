@@ -1,3 +1,4 @@
+// Constructor Objeto Fireman
 
 function Fireman() {
   this.elem = document.getElementById("fireman");
@@ -24,12 +25,9 @@ function Fireman() {
 
   this.dropNpc = function () {
     this.removeNpc();
-    this.addPoints();
+    game.addPoints();
   }
-  this.addPoints = function () {
-    points += 100;
-    updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
-  }
+
 
   this.removePosition = function () {
     this.elem.classList.remove(`row${this.row}`);
@@ -66,6 +64,4 @@ function Fireman() {
     this.removeNpc();
     this.addPosition();
   }
-
-
 }

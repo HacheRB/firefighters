@@ -39,7 +39,7 @@ body{
 }
 
 /* All ID/divs with Absolute position */
-#score, #lifes, #title, #start, #building, #sidewalk, #fireman, .window {
+#score, #lifes, #title, #start, #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp {
   position:absolute;
 }
 
@@ -79,12 +79,13 @@ body{
   z-index: 600;
 }
 
-.withoutNpc{
-  background-color: red;
-}
 .withNpc {
   background-color: greenyellow;
  }
+
+.withoutNpc{
+  background-color: red;
+}
 
 /* Sidewalk ---------------------------------------------*/
 #sidewalk{
@@ -105,17 +106,15 @@ body{
 }
 
 /* Windows */
-.window {
-  background-image:url("../assets/images/window.png");
-  height: var(--window-height);
-  width:  var(--window-width);
-  background-color:none;
-  z-index:300;
+
+.fire{
+  display: none;
+  z-index: 600;
 }
 
-.fireOnWindow {
-  background-color: orange;
-  z-index: 400;
+.npc{
+  display: none;
+  z-index: 650;
 }
 
 .npcOnWindow {
@@ -123,25 +122,14 @@ body{
   z-index: 500;
 }
 
+.window {
+  height: var(--window-height);
+  width:  var(--window-width);
+  z-index:300;
+}
 .windowTemp {
   z-index: 550;
-  position: absolute;
- 
 }
-
-.fire{
-  z-index: 600;
-  position: absolute;
-  display: none;
-}
-
-.npc{
-  z-index: 650;
-  position: absolute;
-  display: none;
-}
-
-
 
 /* Window Positions */
 .row1 { top: var(--window-height); }
