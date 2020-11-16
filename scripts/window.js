@@ -1,12 +1,12 @@
 // Window Constructor
 
-function windowObj(num) {
+  function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.fire = false;
   this.npc = false;
   this.timerNpcBurning = null;
   this.timerfireBurning = null;
-
+/*
   this.fireBurning = function () {
       
       this.timerfireBurning = setTimeout(playSound("fire1", 0.1),0);
@@ -19,10 +19,10 @@ function windowObj(num) {
     clearTimeout(this.timerNpcBurning);
     this.timerNpcBurning = null;
   }
-
+*/
 
   this.setFire = function () {
-    this.fireBurning = loopSound("fire1", 0.1);
+   // this.fireBurning = loopSound("fire1", 0.1);
     this.elem.querySelector(".fire").style.display = "block";
     this.fire = true;
     this.npcBurning();
@@ -33,8 +33,10 @@ function windowObj(num) {
     display = "none";
     this.fire = false;
     this.stopNpcBurning();
-    this.stopFireBurning();
+   // this.stopFireBurning();
   }
+
+
 
   this.setNpc = function () {
     this.elem.querySelector(".npc").style.display = "block";
@@ -61,12 +63,13 @@ function windowObj(num) {
 
   //Mover a game
   this.npcDies = function () {
-    playSound("npcMuere", 0.1);
+    audio.playSound("npcMuere", 0.1);
     console.log(" muerte un npc");
     this.removeNpc();
     lifes--;
     game.updateLifes(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
     if (lifes <= 0) {
+      audio.playSound("npcMuere", 0.1);
       game.setButtonStart();
       game.resetGame();// GLOBAL SCOPE, CUIDADO AL MOVERLA
       return; //
