@@ -33,6 +33,12 @@ function Game() {
     document.getElementById("score").style.display = "none";
   }
 
+  this.mainMenu = function () {
+    //ocultar live y points
+    document.getElementById("lifes").style.display = "none";
+    document.getElementById("score").style.display = "none";
+  }
+
   this.showTitle = function () {
     var title = document.getElementById("title");
     console.log(title)
@@ -63,11 +69,7 @@ function Game() {
 
   // MENUS ------------------------------------------------------------------------------ 
 
-  this.mainMenu = function () {
-    //ocultar live y points
-    document.getElementById("lifes").style.display = "none";
-    document.getElementById("score").style.display = "none";
-  }
+
 
   this.newGame = function () {
     console.log(points);
@@ -149,9 +151,7 @@ function Game() {
   }.bind(this);
 
   this.checkWindow = function () {
-    let firemanRow = `row${this.fireman.row}`;
-    let firemanCol = `col${this.fireman.col}`;
-    console.log(this.fireman);
+
     for (let i = 0; i < game.windows.length; i++) {
       if ((this.windows[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.windows[i].elem.classList.contains(`col${this.fireman.col}`))) {
         this.fireman.checkNpc(this.windows[i]);
@@ -163,8 +163,6 @@ function Game() {
   }
 
   this.extinguishFire = function () {
-    let firemanRow = `row${this.fireman.row}`;
-    let firemanCol = `col${this.fireman.col}`;
     for (let i = 0; i < this.windows.length; i++) {
       if ((this.windows[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.windows[i].elem.classList.contains(`col${this.fireman.col}`))) {
         this.windows[i].removeFire();
@@ -172,27 +170,4 @@ function Game() {
     }
   }
 
-  /*
-    this.checkWindow = function () {
-      console.log("entro en checkWindow");
-      for (let i = 0; i < this.windows.length; i++) {
-        console.log(this.windows[i]);
-        if ((this.windows[i].elem.classList.contains(this.fireman.row)) && (this.windows[i].elem.classList.contains(this.fireman.col))) {
-          this.fireman.checkNpc(this.windows[i]);
-        }
-        if (this.fireman.row === 4 && this.fireman.npc) {
-          this.fireman.dropNpc();
-        }
-      }
-    }
-  
-    this.extinguishFire = function () {
-      console.log("entro en extinguish fire");
-      for (let i = 0; i < this.windows.length; i++) {
-        console.log(this.windows[i]);
-        if ((this.windows[i].elem.classList.contains(this.fireman.row)) && (this.windows[i].elem.classList.contains(this.fireman.col))) {
-          this.windows[i].removeFire();
-        }
-      }
-    }*/
 }

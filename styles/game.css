@@ -114,13 +114,9 @@ body{
 
 .npc{
   display: none;
-  z-index: 650;
+  z-index: 800;
 }
 
-.npcOnWindow {
-  background-color: blue;
-  z-index: 500;
-}
 
 .window {
   height: var(--window-height);

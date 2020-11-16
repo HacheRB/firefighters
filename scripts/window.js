@@ -19,13 +19,13 @@ function windowObj(num) {
   }
 
   this.setNpc = function () {
-    this.elem.classList.add("npcOnWindow");
+    this.elem.querySelector(".npc").style.display = "block";
     this.npc = true;
     this.npcBurning();
   }
 
   this.removeNpc = function () {
-    this.elem.classList.remove("npcOnWindow");
+    this.elem.querySelector(".npc").style.display = "none";
     this.npc = false;
     this.stopNpcBurning();
   }
@@ -41,6 +41,7 @@ function windowObj(num) {
     this.timerNpcBurning = null;
   }
 
+  //Mover a game
   this.npcDies = function () {
     //sonido de muerte 
     console.log(" muerte un npc");
