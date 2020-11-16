@@ -39,7 +39,7 @@ body{
 }
 
 /* All ID/divs with Absolute position */
-#score, #lifes, #title, #start, #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp {
+#score, #lifes, #title, #start, #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp,.basket,  .npcBasket {
   position:absolute;
 }
 
@@ -79,12 +79,17 @@ body{
   z-index: 600;
 }
 
-.withNpc {
-  background-color: greenyellow;
- }
+.basket{
+  position:absolute;
+  width: calc(var(--window-width));
+  height: calc(var(--window-height));
+  z-index:850;
+}
 
-.withoutNpc{
-  background-color: red;
+.npcBasket{
+  display:none;
+  position:absolute;
+  z-index:900;
 }
 
 /* Sidewalk ---------------------------------------------*/
@@ -116,7 +121,6 @@ body{
   display: none;
   z-index: 800;
 }
-
 
 .window {
   height: var(--window-height);

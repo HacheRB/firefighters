@@ -7,13 +7,11 @@ function Fireman() {
   this.npc = false;
 
   this.setNpc = function () {
-    this.elem.classList.remove("withoutNpc");
-    this.elem.classList.add("withNpc");
+    this.elem.querySelector(".npcBasket").style.display = "block";
     this.npc = true;
   }
   this.removeNpc = function () {
-    this.elem.classList.remove("withNpc");
-    this.elem.classList.add("withoutNpc");
+    this.elem.querySelector(".npcBasket").style.display = "none";
     this.npc = false;
   }
   //Checks if windows has npc and fireman doesn´t 
