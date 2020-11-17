@@ -19,9 +19,17 @@ function Game() {
   // UI UPDATES --------------------------------------------------------------------------
 
   this.addPoints = function () {
-    points += 100;
-    this.updateScore();
-    this.incrementLevel();
+ 
+    if (!npcWindowHadFire){
+      points += 100;
+    }
+   
+    if (npcWindowHadFire ) {
+      points += 200;
+      npcWindowHadFire = false;
+    }
+     this.updateScore();
+     this.incrementLevel();
 
   }
 

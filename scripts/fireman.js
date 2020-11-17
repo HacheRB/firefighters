@@ -16,22 +16,21 @@ function Fireman() {
   }
   //Checks if windows has npc and fireman doesn´t 
   this.checkNpc = function (window) {
-    if (window.npc && !this.npc) {
+    if (window.npc && !window.fire && !this.npc) {
+      npcWindowHadFire = false;
+      window.removeNpc();
+      this.setNpc();
+    }
+    if (window.npc && window.fire && !this.npc) {
+      npcWindowHadFire = true;
       window.removeNpc();
       this.setNpc();
     }
   }
-
- 
-
- // var npcWindowHadFire = false;
-  // checknpfFire
-
   this.dropNpc = function () {
     this.removeNpc();
     game.addPoints();
   }
-
 
   this.removePosition = function () {
     this.elem.classList.remove(`row${this.row}`);

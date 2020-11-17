@@ -12,6 +12,7 @@ var countNpc = 0;
 var totalPoints = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
+var npcWindowHadFire = false; 
 game.mainMenu();
 
 
@@ -51,8 +52,10 @@ const btHow = document.getElementById('howToBt').querySelector("h3")
 btHow.addEventListener("click", function (event) {
   if (!howToOn) {
     audio.playSound("pause_in", 0.1);
-    btHow.innerText = 'Back'
-  } else {
+    btHow.innerText = 'Back';
+    howToOn = true;
+  } 
+  else {
     audio.playSound("pause_out", 0.1);
     btHow.innerText = 'How to';
     howToOn = false;
