@@ -14,6 +14,7 @@ function Game() {
     new windowObj(32),
     new windowObj(33)
   ];
+ 
 
 
   // UI UPDATES --------------------------------------------------------------------------
@@ -21,15 +22,18 @@ function Game() {
   this.addPoints = function () {
     points += 100;
     this.updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+    this.incrementLevel();
   }
 
   this.showUi = function () {
+    document.getElementById("level").style.display = "block";
     document.getElementById("lifes").style.display = "block";
     document.getElementById("score").style.display = "block";
   }
 
   this.hideUi = function () {
     document.getElementById("lifes").style.display = "none";
+    document.getElementById("level").style.display = "none";
     document.getElementById("score").style.display = "none";
   }
 
@@ -37,6 +41,7 @@ function Game() {
     //ocultar live y points
     document.getElementById("lifes").style.display = "none";
     document.getElementById("score").style.display = "none";
+    
   }
 
   this.showTitle = function () {
@@ -59,6 +64,10 @@ function Game() {
 
   this.updateLifes = function () {
     document.getElementById("lifes").querySelector("h2").innerHTML = `Lifes left : ${lifes}`;
+  }
+
+  this.updateLevel = function () {
+    document.getElementById("level").querySelector("h2").innerHTML = `Level : ${level}`;
   }
 
   this.setButtonStart = function () {
@@ -94,10 +103,21 @@ function Game() {
     this.hideUi();
     this.showTitle();
     points = 0;
+    level = 0;
+    this.countNpc=0;
   }
 
 
   // TIMERS PARA GENERAR FUEGOS / NPCS ---------------------------------------------------
+
+  this.incrementLevel = function(){
+    countNpc++;
+      if (countNpc === 3){
+        level++;
+        this.updateLevel();
+        countNpc = 0;
+      }
+  }
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);
@@ -116,6 +136,8 @@ function Game() {
     clearInterval(timerFireGen);
     timerFireGen = null;
   }
+
+
 
 
   // FUNCIONES DE GAME -------------------------------------------------------------------

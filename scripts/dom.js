@@ -1,11 +1,13 @@
 //Variables del juego
 const game = new Game();
-const time = 2000;
+var time = 3000;
 const audio = new audioPlayer();
 
 var gameOn = false;
 var lifes = 5;
 var points = 0;
+var level = 0;
+var countNpc = 0;
 var totalPoints = 0;
 var timerFireGen = null;
 var timerNpcGen = null;

@@ -60,15 +60,15 @@
   //Mover a game
   this.npcDies = function () {
     audio.playSound("npcMuere", 0.1);
-    console.log(" muerte un npc");
+   
     this.removeNpc();
     lifes--;
-    game.updateLifes(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+    game.updateLifes(); 
     if (lifes <= 0) {
       audio.playSound("npcMuere", 0.1);
       game.setButtonStart();
-      game.resetGame();// GLOBAL SCOPE, CUIDADO AL MOVERLA
-      return; //
+      game.resetGame();
+      return; 
     }
   }.bind(this);
 
