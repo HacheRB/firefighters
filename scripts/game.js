@@ -74,17 +74,36 @@ function Game() {
     document.getElementById("gameOver").style.display = "none";
   }
 
-  this.showHowTo = function () {
+  this.showHowToButton = function () {
     var howToPlay = document.getElementById("howToBt");
     howToPlay.style.display = "block";
   }
-
-  this.hideHowTo = function () {
+  
+  this.hideHowToButton = function () {
     var howToPlay = document.getElementById("howToBt");
+    howToPlay.style.display = "none";
+  }
+
+  this.showHowToPlay = function () {
+    var howToPlay = document.getElementById("howToPlay");
     howToPlay.style.display = "block";
   }
 
+  this.hideHowToPlay = function () {
+    var howToPlay = document.getElementById("howToPlay");
+    howToPlay.style.display = "none";
+  }
+//hide and show ById - only block 
 
+  this.hideById = function(id){
+    let selectId = document.getElementById(id);
+    selectId.style.display = "none";
+  }
+  this.showById = function(id, displayType){
+    let selectedId = document.getElementById(id);
+    selectedId.style.display = displayType;
+  }
+//
   this.updateScore = function () {
     document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
   }
@@ -102,6 +121,9 @@ function Game() {
     gameOn = false;
   }
 
+  
+
+  
 
   // MENUS ------------------------------------------------------------------------------ 
   this.newGame = function () {

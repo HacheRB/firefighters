@@ -13,7 +13,9 @@ var totalPoints = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
 var npcWindowHadFire = false; 
+var block = "block";
 game.mainMenu();
+
 
 
 
@@ -53,13 +55,19 @@ btHow.addEventListener("click", function (event) {
   if (!howToOn) {
     audio.playSound("pause_in", 0.1);
     btHow.innerText = 'Back';
+    game.hideById("start");
+    game.hideById("title");
     howToOn = true;
   } 
   else {
     audio.playSound("pause_out", 0.1);
     btHow.innerText = 'How to';
+    game.showById("start", block);
+    game.showById("title", block);
     howToOn = false;
   }
 })
+
+
 
 
