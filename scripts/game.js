@@ -20,8 +20,9 @@ function Game() {
 
   this.addPoints = function () {
     points += 100;
-    this.updateScore(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+    this.updateScore();
     this.incrementLevel();
+
   }
 
   this.showUi = function () {
@@ -37,7 +38,6 @@ function Game() {
   }
 
   this.mainMenu = function () {
-    //ocultar live y points
     document.getElementById("lifes").style.display = "none";
     document.getElementById("score").style.display = "none";
   }
@@ -125,16 +125,34 @@ function Game() {
   }
 
 
-  // TIMERS PARA GENERAR FUEGOS / NPCS ---------------------------------------------------
+  // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
 
   this.incrementLevel = function () {
     countNpc++;
-    if (countNpc === 3) {
+    if (countNpc === 3 && level <=7) {
+      level++;
+      this.updateLevel();
+      countNpc = 0;
+      time /= 1.1; 
+      this.changeTimersSpeed(time);
+    }
+    
+    if (level >7 && countNpc === 3) {
       level++;
       this.updateLevel();
       countNpc = 0;
     }
   }
+
+  this.changeTimersSpeed = function (intervalTime) {
+      
+      this.stopNpcTimer();
+      this.stopFireTimer();
+      this.setNpcTimer(time);
+      this.setFireTimer(time);
+
+  }
+  
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);

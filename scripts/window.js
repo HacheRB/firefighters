@@ -43,7 +43,7 @@ function windowObj(num) {
 
   this.npcBurning = function () {
     if (this.npc && this.fire) {
-      this.timerNpcBurning = setTimeout(this.npcDies, 1000);
+      this.timerNpcBurning = setTimeout(this.npcDies, 3000);
     }
   }
 

@@ -22,6 +22,11 @@ function Fireman() {
     }
   }
 
+ 
+
+ // var npcWindowHadFire = false;
+  // checknpfFire
+
   this.dropNpc = function () {
     this.removeNpc();
     game.addPoints();
