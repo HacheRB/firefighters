@@ -29,10 +29,11 @@ this.playSound = function(sound, vol) {
 }
 
 this.loopSound = function(sound, vol) {
-    let soundSelect = document.getElementById(sound);
-    //ponerlo con loop
+    let soundSelect = AUDIOS[sound];
     soundSelect.volume = vol;
+    soundSelect.loop = true;
     soundSelect.play();
+
 }
 
 
