@@ -14,7 +14,6 @@ function Game() {
     new windowObj(32),
     new windowObj(33)
   ];
- 
 
 
   // UI UPDATES --------------------------------------------------------------------------
@@ -41,15 +40,12 @@ function Game() {
     //ocultar live y points
     document.getElementById("lifes").style.display = "none";
     document.getElementById("score").style.display = "none";
-    
   }
 
   this.showTitle = function () {
     var title = document.getElementById("title");
-    console.log(title)
     title.style.display = "block";
     var header = title.querySelector("h1");
-    console.log(header);
     header.innerText = `GAME OVER!
     You got ${points} points!`;
   }
@@ -57,6 +53,29 @@ function Game() {
   this.hideTitle = function () {
     document.getElementById("title").style.display = "none";
   }
+
+  this.showGameOver = function () {
+    var gameOv = document.getElementById("gameOver");
+    gameOv.style.display = "block";
+    var header = gameOv.querySelector("h1");
+    header.innerText = `GAME OVER!
+    You got ${points} points!`;
+  }
+
+  this.hideGameOver = function () {
+    document.getElementById("gameOver").style.display = "none";
+  }
+
+  this.showHowTo = function () {
+    var howToPlay = document.getElementById("howToBt");
+    howToPlay.style.display = "block";
+  }
+
+  this.hideHowTo = function () {
+    var howToPlay = document.getElementById("howToBt");
+    howToPlay.style.display = "block";
+  }
+
 
   this.updateScore = function () {
     document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
@@ -77,23 +96,21 @@ function Game() {
 
 
   // MENUS ------------------------------------------------------------------------------ 
-
-
-
   this.newGame = function () {
     console.log(points);
     this.updateScore();
     this.fireman.resetFireman();
     this.showUi();
     this.hideTitle();
-    this.setFireTimer(time);// GLOBAL SCOPE, CUIDADO AL MOVERLA
-    this.setNpcTimer(time);  // GLOBAL SCOPE, CUIDADO AL MOVERLA
+    this.hideGameOver();
+    this.setFireTimer(time);
+    this.setNpcTimer(time);
   }
 
   this.resetGame = function () {
     totalPoints = points;
-    this.stopNpcTimer();  // GLOBAL SCOPE, CUIDADO AL MOVERLA
-    this.stopFireTimer(); // GLOBAL SCOPE, CUIDADO AL MOVERLA
+    this.stopNpcTimer();
+    this.stopFireTimer();
     this.fireman.resetFireman();
     for (let i = 0; i < this.windows.length; i++) {
       this.windows[i].resetWindow();
@@ -101,22 +118,22 @@ function Game() {
     lifes = 5;
     this.updateLifes();
     this.hideUi();
-    this.showTitle();
+    this.showGameOver();
     points = 0;
     level = 0;
-    this.countNpc=0;
+    this.countNpc = 0;
   }
 
 
   // TIMERS PARA GENERAR FUEGOS / NPCS ---------------------------------------------------
 
-  this.incrementLevel = function(){
+  this.incrementLevel = function () {
     countNpc++;
-      if (countNpc === 3){
-        level++;
-        this.updateLevel();
-        countNpc = 0;
-      }
+    if (countNpc === 3) {
+      level++;
+      this.updateLevel();
+      countNpc = 0;
+    }
   }
 
   this.setNpcTimer = function (time) {
@@ -136,8 +153,6 @@ function Game() {
     clearInterval(timerFireGen);
     timerFireGen = null;
   }
-
-
 
 
   // FUNCIONES DE GAME -------------------------------------------------------------------

@@ -39,7 +39,7 @@ body{
 }
 
 /* All ID/divs with Absolute position */
-#score, #lifes, #level, #title, #start, #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp,.basket,  .npcBasket {
+#score, #lifes, #level, #gameOver, #title, #howToPlay, #start, #howToBt,  #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp,.basket,  .npcBasket {
   position:absolute;
 }
 
@@ -60,6 +60,24 @@ body{
 #level{
   top: 100px;
 }
+
+#howToPlay{
+  display:none;
+  right: 55px;
+  top: 310px;
+  text-align: center;
+  font-size: 0.2;
+  width:475px;
+  
+}
+#gameOver{
+  display:none;
+  right: 55px;
+  top: 310px;
+  text-align: center;
+  font-size: 0.2;
+  width:475px;
+}
 #title{
   display:inline;
   right: 55px;
@@ -67,15 +85,20 @@ body{
   text-align: center;
   font-size: 0.2;
   width:475px;
-
   }
 
 #start{
+  display:inline;
   right: 200px;
   top: 450px;
   text-align: center;
 }
-
+#howToBt{
+  display:inline;
+  right: 200px;
+  top: 550px;
+  text-align: center;
+}
 /* Fireman ---------------------------------------------*/
 #fireman {
   width: calc(var(--window-width));

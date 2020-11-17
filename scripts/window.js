@@ -1,23 +1,20 @@
 // Window Constructor
 
-  function windowObj(num) {
+function windowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.fire = false;
   this.npc = false;
   this.timerNpcBurning = null;
-  this.timerfireBurning = null;
 
   this.fireBurning = function () {
-    this.timerfireBurning = setTimeout( audio.playSound("fire1", 0.1), 0);
+    audio.playSound("fire1", 0.1);
   }
 
   this.stopFireBurning = function () {
-    clearTimeout(this.timerNpcBurning);
-    this.timerNpcBurning = null;
+    audio.pauseSound("fire1");
   }
 
   this.setFire = function () {
-
     this.elem.querySelector(".fire").style.display = "block";
     this.fire = true;
     this.npcBurning();
@@ -26,13 +23,11 @@
 
   this.removeFire = function () {
     this.elem.querySelector(".fire").style.
-    display = "none";
+      display = "none";
     this.fire = false;
     this.stopNpcBurning();
     this.stopFireBurning();
   }
-
-
 
   this.setNpc = function () {
     this.elem.querySelector(".npc").style.display = "block";
@@ -60,22 +55,20 @@
   //Mover a game
   this.npcDies = function () {
     audio.playSound("npcMuere", 0.1);
-   
     this.removeNpc();
     lifes--;
-    game.updateLifes(); 
+    game.updateLifes();
     if (lifes <= 0) {
       audio.playSound("npcMuere", 0.1);
       game.setButtonStart();
       game.resetGame();
-      return; 
+      return;
     }
   }.bind(this);
 
   this.resetWindow = function () {
-    
     this.removeFire();
     this.removeNpc();
-    
+
   }
 }

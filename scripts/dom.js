@@ -4,6 +4,7 @@ var time = 3000;
 const audio = new audioPlayer();
 
 var gameOn = false;
+var howToOn = false;
 var lifes = 5;
 var points = 0;
 var level = 0;
@@ -40,8 +41,21 @@ button.addEventListener("click", function (event) {
     audio.playSound("pause_out", 0.1);
     console.log(gameOn + " else");
     button.innerText = 'Start';
-    game.resetGame(game);
+    game.resetGame();
     gameOn = false;
+  }
+})
+
+//Boton how to
+const btHow = document.getElementById('howToBt').querySelector("h3")
+btHow.addEventListener("click", function (event) {
+  if (!howToOn) {
+    audio.playSound("pause_in", 0.1);
+    btHow.innerText = 'Back'
+  } else {
+    audio.playSound("pause_out", 0.1);
+    btHow.innerText = 'How to';
+    howToOn = false;
   }
 })
 
