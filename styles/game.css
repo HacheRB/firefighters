@@ -6,6 +6,7 @@
   font-family: 'Press Start 2P', cursive;
   color: white;
   font-size: 18px; 
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .h1{
@@ -62,18 +63,20 @@ body{
 }
 
 #howToPlay{
+  font-size: 30px;
   display:none;
   right: 55px;
   top: 310px;
-  text-align: center;
+  text-align: left;
   font-size: 0.2;
   width:475px;
+  z-index: 800;
   
 }
 #gameOver{
   display:none;
   right: 55px;
-  top: 310px;
+  top: 275px;
   text-align: center;
   font-size: 0.2;
   width:475px;
@@ -81,23 +84,34 @@ body{
 #title{
   display:inline;
   right: 55px;
-  top: 310px;
+  top: 275px;
   text-align: center;
   font-size: 0.2;
   width:475px;
   }
 
-#start{
+
+#start, #howToBt {
   display:inline;
   right: 200px;
-  top: 450px;
+  width:200px;
+  height:75px;
   text-align: center;
+  z-index: 900;
+}
+#start{  
+  top: 500px;
 }
 #howToBt{
-  display:inline;
-  right: 200px;
-  top: 550px;
-  text-align: center;
+  top: 600px;
+}
+#howToPlay {
+  font-size: 0.9rem;
+  padding:3px;
+  top: 200px;
+  right: 25px;
+  width: 525px;
+  height:350px;
 }
 /* Fireman ---------------------------------------------*/
 #fireman {

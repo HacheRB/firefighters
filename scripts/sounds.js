@@ -12,10 +12,12 @@ function audioPlayer() {
         manguera2: new Audio("assets/music/manguera2.wav"),
         menu1: new Audio("assets/music/menu1.wav"),
         menu2: new Audio("assets/music/menu2.wav"),
-        npcMuere: new Audio("assets/music/menu2.wav"),
+        npcMuere: new Audio("assets/music/sfx_deathscream_human9.wav"),
         pause_in: new Audio("assets/music/pause_in.wav"),
         pause_out: new Audio("assets/music/pause_out.wav"),
         splash: new Audio("assets/music/Splash-agua.wav"),
+        dropNpc: new Audio("assets/music/dropNPC.wav"),
+        gameOver: new Audio("assets/music/sfx_alarm_loop8.wav"),
     }
 
     this.playSound = function (sound, vol) {

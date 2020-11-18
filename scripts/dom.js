@@ -12,7 +12,7 @@ var countNpc = 0;
 var totalPoints = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
-var npcWindowHadFire = false; 
+var npcWindowHadFire = false;
 var block = "block";
 game.mainMenu();
 
@@ -39,12 +39,14 @@ button.addEventListener("click", function (event) {
     console.log(!gameOn + " if");
     button.innerText = 'End'
     gameOn = true;
+    game.hideById("howToBt");
     game.newGame();
   } else {
     audio.playSound("pause_out", 0.1);
     console.log(gameOn + " else");
     button.innerText = 'Start';
     game.resetGame();
+    game.showById("howToBt", block);
     gameOn = false;
   }
 })
@@ -52,17 +54,20 @@ button.addEventListener("click", function (event) {
 //Boton how to
 const btHow = document.getElementById('howToBt').querySelector("h3")
 btHow.addEventListener("click", function (event) {
-  if (!howToOn) {
+  if (!howToOn && !gameOn) {
     audio.playSound("pause_in", 0.1);
     btHow.innerText = 'Back';
     game.hideById("start");
     game.hideById("title");
+    game.hideById("gameOver")
+    game.showById("howToPlay", block);
     howToOn = true;
-  } 
+  }
   else {
     audio.playSound("pause_out", 0.1);
     btHow.innerText = 'How to';
     game.showById("start", block);
+    game.hideById("howToPlay");
     game.showById("title", block);
     howToOn = false;
   }

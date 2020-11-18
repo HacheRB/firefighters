@@ -61,6 +61,7 @@ function windowObj(num) {
     if (lifes <= 0) {
       audio.playSound("npcMuere", 0.1);
       game.setButtonStart();
+      audio.playSound("gameOver", 0.1);
       game.resetGame();
       return;
     }

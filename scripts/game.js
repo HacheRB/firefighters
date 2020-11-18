@@ -19,17 +19,17 @@ function Game() {
   // UI UPDATES --------------------------------------------------------------------------
 
   this.addPoints = function () {
- 
-    if (!npcWindowHadFire){
+
+    if (!npcWindowHadFire) {
       points += 100;
     }
-   
-    if (npcWindowHadFire ) {
+
+    if (npcWindowHadFire) {
       points += 200;
       npcWindowHadFire = false;
     }
-     this.updateScore();
-     this.incrementLevel();
+    this.updateScore();
+    this.incrementLevel();
 
   }
 
@@ -78,7 +78,7 @@ function Game() {
     var howToPlay = document.getElementById("howToBt");
     howToPlay.style.display = "block";
   }
-  
+
   this.hideHowToButton = function () {
     var howToPlay = document.getElementById("howToBt");
     howToPlay.style.display = "none";
@@ -93,17 +93,17 @@ function Game() {
     var howToPlay = document.getElementById("howToPlay");
     howToPlay.style.display = "none";
   }
-//hide and show ById - only block 
+  //hide and show ById - only block 
 
-  this.hideById = function(id){
+  this.hideById = function (id) {
     let selectId = document.getElementById(id);
     selectId.style.display = "none";
   }
-  this.showById = function(id, displayType){
+  this.showById = function (id, displayType) {
     let selectedId = document.getElementById(id);
     selectedId.style.display = displayType;
   }
-//
+  //
   this.updateScore = function () {
     document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
   }
@@ -121,9 +121,9 @@ function Game() {
     gameOn = false;
   }
 
-  
 
-  
+
+
 
   // MENUS ------------------------------------------------------------------------------ 
   this.newGame = function () {
@@ -159,15 +159,15 @@ function Game() {
 
   this.incrementLevel = function () {
     countNpc++;
-    if (countNpc === 3 && level <=7) {
+    if (countNpc === 3 && level <= 15) {
       level++;
       this.updateLevel();
       countNpc = 0;
-      time /= 1.1; 
+      time /= 1.1;
       this.changeTimersSpeed(time);
     }
-    
-    if (level >7 && countNpc === 3) {
+
+    if (countNpc === 3 && level > 15) {
       level++;
       this.updateLevel();
       countNpc = 0;
@@ -175,14 +175,14 @@ function Game() {
   }
 
   this.changeTimersSpeed = function (intervalTime) {
-      
-      this.stopNpcTimer();
-      this.stopFireTimer();
-      this.setNpcTimer(time);
-      this.setFireTimer(time);
+
+    this.stopNpcTimer();
+    this.stopFireTimer();
+    this.setNpcTimer(time);
+    this.setFireTimer(time);
 
   }
-  
+
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);
@@ -209,7 +209,6 @@ function Game() {
     let randomNpc = Math.floor(Math.random() * 9);
     let ISFULL = (item) => item.npc === true;
     if (this.windows.every(ISFULL)) {
-      this.stopNpcTimer();
       return;
     }
     else if (!this.windows[randomNpc].npc) {
@@ -224,6 +223,7 @@ function Game() {
     let randomFire = Math.floor(Math.random() * 9);
     let ISFULL = (item) => item.fire === true;
     if (this.windows.every(ISFULL)) {
+      audio.playSound("gameOver", 0.05);
       this.resetGame();
       return;
     }
@@ -243,11 +243,13 @@ function Game() {
       }
       if (this.fireman.row === 4 && this.fireman.npc) {
         this.fireman.dropNpc();
+        audio.playSound("dropNpc", 0.1)
       }
     }
   }
 
   this.extinguishFire = function () {
+    audio.playSound("splash", 0.1);
     for (let i = 0; i < this.windows.length; i++) {
       if ((this.windows[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.windows[i].elem.classList.contains(`col${this.fireman.col}`))) {
         this.windows[i].removeFire();
