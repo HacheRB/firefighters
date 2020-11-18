@@ -7,7 +7,7 @@ function windowObj(num) {
   this.timerNpcBurning = null;
 
   this.fireBurning = function () {
-    audio.playSound("fire1", 0.1);
+    audio.loopSound("fire1", 0.1);
   }
 
   this.stopFireBurning = function () {
@@ -60,7 +60,6 @@ function windowObj(num) {
     game.updateLifes();
     if (lifes <= 0) {
       audio.playSound("npcMuere", 0.1);
-      game.setButtonStart();
       audio.playSound("gameOver", 0.1);
       game.resetGame();
       return;

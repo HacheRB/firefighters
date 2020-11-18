@@ -31,31 +31,34 @@ body{
   display:block;
   position: relative;
   border:3px solid #FCA311;
-  background-color:lightblue;
-  margin:auto;
   align-items:center;
   justify-content:center;
+  margin:auto;
   height: 800px;
   width: 1200px;
 }
 
 /* All ID/divs with Absolute position */
-#score, #lifes, #level, #gameOver, #title, #howToPlay, #start, #howToBt,  #building, #sidewalk, #fireman, .fire, .npc, .window, .windowTemp,.basket,  .npcBasket {
+#score, #lifes, #level, #gameOver, #title, #howToPlay, #start, #howToBt,  #building, #sidewalk, #fireman, #basket, .fire, .npc, .window, .windowTemp,.basket, .npcBasket {
   position:absolute;
 }
 
 /* Menu / UI -------------------------------------------*/
 /*  Margin right for some UI */
-#score, #level, #lifes {
+#level, #lifes, #score {
   right:20px;
   display: none;
 }
-#score{
-  top: 60px;
+
+#gameOver,#howToBt, #title, #start {
+  text-align: center;
 }
 
 #lifes{
   top: 20px;
+}
+#score{
+  top: 60px;
 }
 
 #level{
@@ -63,40 +66,32 @@ body{
 }
 
 #howToPlay{
-  font-size: 30px;
   display:none;
-  right: 55px;
   top: 310px;
-  text-align: left;
-  font-size: 0.2;
+  right: 55px;
   width:475px;
+  text-align: left;
   z-index: 800;
   
 }
 #gameOver{
   display:none;
-  right: 55px;
   top: 275px;
-  text-align: center;
-  font-size: 0.2;
+  right: 55px;
   width:475px;
 }
 #title{
-  display:inline;
+  display:block;
   right: 55px;
   top: 275px;
-  text-align: center;
-  font-size: 0.2;
   width:475px;
   }
 
-
 #start, #howToBt {
-  display:inline;
+  display:block;
   right: 200px;
   width:200px;
   height:75px;
-  text-align: center;
   z-index: 900;
 }
 #start{  
@@ -110,8 +105,8 @@ body{
   padding:3px;
   top: 200px;
   right: 25px;
-  width: 525px;
   height:350px;
+  width: 525px;
 }
 /* Fireman ---------------------------------------------*/
 #fireman {
@@ -121,7 +116,6 @@ body{
 }
 
 .basket{
-  position:absolute;
   width: calc(var(--window-width));
   height: calc(var(--window-height));
   z-index:850;
@@ -129,26 +123,23 @@ body{
 
 .npcBasket{
   display:none;
-  position:absolute;
   z-index:900;
 }
 
 /* Sidewalk ---------------------------------------------*/
 #sidewalk{
   background-image:url("../assets/images/sidewalk.png");
-  width: 1200px;
-  height: 25px;
   top: 775px;
-  background-color:rgb(109, 105, 105);
+  height: 25px;
+  width: 1200px;
 }
 
 /* Building --------------------------------------------*/
 #building{
   background-image:url("../assets/images/building.png");
-  width: calc(var(--window-width)*6);
-  height: calc(var(--window-height)*6);
   top: 50px;
-  background-color:darkgray;
+  height: calc(var(--window-height)*6);
+  width: calc(var(--window-width)*6);
 }
 
 /* Windows */

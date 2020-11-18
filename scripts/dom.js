@@ -1,23 +1,19 @@
 //Variables del juego
 const game = new Game();
-var time = 3000;
 const audio = new audioPlayer();
 
 var gameOn = false;
 var howToOn = false;
 var lifes = 5;
-var points = 0;
 var level = 0;
-var countNpc = 0;
+var points = 0;
 var totalPoints = 0;
+var time = 3000;
+var countNpc = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
 var npcWindowHadFire = false;
 var block = "block";
-game.mainMenu();
-
-
-
 
 //EVENT LISTENERS 
 document.addEventListener("keydown", function (event) {
@@ -30,23 +26,21 @@ document.addEventListener("keydown", function (event) {
   //console.log(event.code);
 })
 
-
 //Boton Start/End
 const button = document.getElementById('start').querySelector("h2")
 button.addEventListener("click", function (event) {
   if (!gameOn) {
     audio.playSound("pause_in", 0.1);
-    console.log(!gameOn + " if");
     button.innerText = 'End'
-    gameOn = true;
     game.hideById("howToBt");
+    game.hideById("title");
     game.newGame();
+    gameOn = true;
   } else {
     audio.playSound("pause_out", 0.1);
-    console.log(gameOn + " else");
     button.innerText = 'Start';
-    game.resetGame();
     game.showById("howToBt", block);
+    game.resetGame();
     gameOn = false;
   }
 })

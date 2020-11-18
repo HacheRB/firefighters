@@ -19,18 +19,15 @@ function Game() {
   // UI UPDATES --------------------------------------------------------------------------
 
   this.addPoints = function () {
-
     if (!npcWindowHadFire) {
       points += 100;
     }
-
     if (npcWindowHadFire) {
       points += 200;
       npcWindowHadFire = false;
     }
     this.updateScore();
     this.incrementLevel();
-
   }
 
   this.showUi = function () {
@@ -45,53 +42,12 @@ function Game() {
     document.getElementById("score").style.display = "none";
   }
 
-  this.mainMenu = function () {
-    document.getElementById("lifes").style.display = "none";
-    document.getElementById("score").style.display = "none";
-  }
-
-  this.showTitle = function () {
-    var title = document.getElementById("title");
-    title.style.display = "block";
-    var header = title.querySelector("h1");
-    header.innerText = `GAME OVER!
-    You got ${points} points!`;
-  }
-
-  this.hideTitle = function () {
-    document.getElementById("title").style.display = "none";
-  }
-
   this.showGameOver = function () {
     var gameOv = document.getElementById("gameOver");
     gameOv.style.display = "block";
     var header = gameOv.querySelector("h1");
     header.innerText = `GAME OVER!
     You got ${points} points!`;
-  }
-
-  this.hideGameOver = function () {
-    document.getElementById("gameOver").style.display = "none";
-  }
-
-  this.showHowToButton = function () {
-    var howToPlay = document.getElementById("howToBt");
-    howToPlay.style.display = "block";
-  }
-
-  this.hideHowToButton = function () {
-    var howToPlay = document.getElementById("howToBt");
-    howToPlay.style.display = "none";
-  }
-
-  this.showHowToPlay = function () {
-    var howToPlay = document.getElementById("howToPlay");
-    howToPlay.style.display = "block";
-  }
-
-  this.hideHowToPlay = function () {
-    var howToPlay = document.getElementById("howToPlay");
-    howToPlay.style.display = "none";
   }
   //hide and show ById - only block 
 
@@ -116,23 +72,15 @@ function Game() {
     document.getElementById("level").querySelector("h2").innerHTML = `Level : ${level}`;
   }
 
-  this.setButtonStart = function () {
-    button.innerText = 'Start';
-    gameOn = false;
-  }
-
-
-
-
-
   // MENUS ------------------------------------------------------------------------------ 
   this.newGame = function () {
-    console.log(points);
+    this.updateLifes();
     this.updateScore();
+    this.updateLevel();
     this.fireman.resetFireman();
     this.showUi();
-    this.hideTitle();
-    this.hideGameOver();
+    this.showById("title");
+    this.hideById("gameOver")
     this.setFireTimer(time);
     this.setNpcTimer(time);
   }
@@ -145,10 +93,12 @@ function Game() {
     for (let i = 0; i < this.windows.length; i++) {
       this.windows[i].resetWindow();
     }
-    lifes = 5;
-    this.updateLifes();
+    button.innerText = 'Start';
+    gameOn = false;
+    game.showById("howToBt", block);
     this.hideUi();
     this.showGameOver();
+    lifes = 5;
     points = 0;
     level = 0;
     this.countNpc = 0;
@@ -166,7 +116,6 @@ function Game() {
       time /= 1.1;
       this.changeTimersSpeed(time);
     }
-
     if (countNpc === 3 && level > 15) {
       level++;
       this.updateLevel();
@@ -175,14 +124,11 @@ function Game() {
   }
 
   this.changeTimersSpeed = function (intervalTime) {
-
     this.stopNpcTimer();
     this.stopFireTimer();
     this.setNpcTimer(time);
     this.setFireTimer(time);
-
   }
-
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);
