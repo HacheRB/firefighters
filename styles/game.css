@@ -100,6 +100,16 @@ body{
 #howToBt{
   top: 600px;
 }
+
+#music {
+  display:block;
+  position:absolute;
+  right: 0px;
+  width:210px;
+  height:50px;
+  top:725px;
+  z-index: 900;
+}
 #howToPlay {
   font-size: 0.9rem;
   padding:3px;
@@ -125,8 +135,22 @@ body{
   display:none;
   z-index:900;
 }
+/*PowerUp ----------------------------------------------*/
+#powerUp{
+  position: absolute;
+  display:none;
+}
+#heart{
+ position: absolute;
+display:none;
+}
+#clock{
+  position: absolute;
+  display:none;
+}
 
-/* Sidewalk ---------------------------------------------*/
+
+/* Sidewalk --------------------------------------------*/
 #sidewalk{
   background-image:url("../assets/images/sidewalk.png");
   top: 775px;
@@ -134,7 +158,7 @@ body{
   width: 1200px;
 }
 
-/* Building --------------------------------------------*/
+/* Building -------------------------------------------*/
 #building{
   background-image:url("../assets/images/building.png");
   top: 50px;

@@ -5,6 +5,7 @@ const audio = new audioPlayer();
 // variables globales del juego
 var gameOn = false;               //si está en partida o no
 var howToOn = false;              // si estás en el menu how to
+var musicOn = false;
 var lifes = 5;                    //vidas
 var level = 0;                    //nivel actual
 var points = 0;                   //puntos totales
@@ -18,7 +19,7 @@ var isTimeSlowed = false;         // variable para controlar si el tiempo está 
 var timerPowerUpDuration = null;  // timer del powerup slowtime
 var npcWindowHadFire = false;     // si habia fuego en la ventana del npc cuando lo recogiste.
 var block = "block";
-const AUDIOS = {
+const IMAGES = {
   lifePowerUp: "assets/images/heart.png",
   slowTime: "assets/images/clock.png",
 }
@@ -77,4 +78,17 @@ btHow.addEventListener("click", function (event) {
 
 
 
+const btMusic = document.getElementById('music').querySelector("h3");
+btMusic.addEventListener("click", function (event) {
+  if (!musicOn) {
+    audio.loopSound("music", 0.05)
+    btMusic.innerText = 'Music On';
+    musicOn = true;
+  }
+  else {
+    audio.pauseSound("music")
+    btMusic.innerText = 'Music Off';
 
+    musicOn = false;
+  }
+})
