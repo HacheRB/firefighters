@@ -1,11 +1,10 @@
 // Window Constructor
 
-function windowObj(num) {
+function WindowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.fire = false;
   this.npc = false;
   this.timerNpcBurning = null;
-
   this.fireBurning = function () {
     audio.loopSound("fire1", 0.1);
   }

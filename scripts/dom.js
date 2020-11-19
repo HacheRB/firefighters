@@ -1,21 +1,27 @@
-//Variables del juego
+//Constantes del juego
 const game = new Game();
 const audio = new audioPlayer();
 
-var gameOn = false;
-var howToOn = false;
-var lifes = 5;
-var level = 0;
-var points = 0;
-var totalPoints = 0;
-var time = 3000;
-var countNpc = 0;
-var timerFireGen = null;
-var timerNpcGen = null;
-var isTimeSlowed = false;
-var timerPowerUpDuration = null;
-var npcWindowHadFire = false;
+// variables globales del juego
+var gameOn = false;               //si está en partida o no
+var howToOn = false;              // si estás en el menu how to
+var lifes = 5;                    //vidas
+var level = 0;                    //nivel actual
+var points = 0;                   //puntos totales
+var totalPoints = 0;              //var para mostrar los puntos por pantalla, antes de reiniciarlos
+var time = 3000;                  //variable tiempo para los timers
+var countNpc = 0;                 //contador de NPCs salvados(usada para calcular la subida de nivel cuando vale 3)
+var timerFireGen = null;          // timer generador de fuego
+var timerNpcGen = null;           // timer generador de npcs
+var isPowerUpActive = false;
+var isTimeSlowed = false;         // variable para controlar si el tiempo está relentizado(powerup)
+var timerPowerUpDuration = null;  // timer del powerup slowtime
+var npcWindowHadFire = false;     // si habia fuego en la ventana del npc cuando lo recogiste.
 var block = "block";
+const AUDIOS = {
+  lifePowerUp: "assets/images/heart.png",
+  slowTime: "assets/images/clock.png",
+}
 
 //EVENT LISTENERS 
 document.addEventListener("keydown", function (event) {

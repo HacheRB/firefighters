@@ -4,33 +4,24 @@ function Game() {
   this.fireman = new Fireman();
   this.fireman.removeNpc();
   this.windows = [
-    new windowObj(11),
-    new windowObj(12),
-    new windowObj(13),
-    new windowObj(21),
-    new windowObj(22),
-    new windowObj(23),
-    new windowObj(31),
-    new windowObj(32),
-    new windowObj(33)
+    new WindowObj(11),
+    new WindowObj(12),
+    new WindowObj(13),
+    new WindowObj(21),
+    new WindowObj(22),
+    new WindowObj(23),
+    new WindowObj(31),
+    new WindowObj(32),
+    new WindowObj(33)
   ];
-  this.powerUpTypes = [
 
-  ]
+  this.powerUpTypes = [
+    new lifePowerUp(),
+    new slowTime()
+  ];
 
 
   // UI UPDATES --------------------------------------------------------------------------
-
-  // add life working
-  this.addOneLife = function () {
-    if (lifes < 5) {
-      audio.playSound("extraLife", 0.05);
-      lifes++;
-      this.updateLifes();
-    }
-  }
-  //-----------------------
-
   this.addPoints = function () {
     if (!npcWindowHadFire) {
       points += 100;
@@ -62,8 +53,8 @@ function Game() {
     header.innerText = `GAME OVER!
     You got ${points} points!`;
   }
-  //hide and show ById - only block 
 
+  //hide and show ById - only block 
   this.hideById = function (id) {
     let selectId = document.getElementById(id);
     selectId.style.display = "none";
@@ -72,7 +63,7 @@ function Game() {
     let selectedId = document.getElementById(id);
     selectedId.style.display = displayType;
   }
-  //
+
   this.updateScore = function () {
     document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
   }
@@ -120,6 +111,7 @@ function Game() {
 
 
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
+
   //funcion adaptada para que tenga en cuenta el tiempo is slowed
   this.incrementLevel = function () {
     countNpc++;
@@ -143,16 +135,7 @@ function Game() {
     }
   }
 
-  //powerup que reduce el tiempo
-  this.decreaseTimerSpeed = function () {
-    isTimeSlowed = true;
-    let currentTime = time * 3;
-    this.stopNpcTimer();
-    this.stopFireTimer();
-    this.setNpcTimer(currentTime);
-    this.setFireTimer(currentTime);
-    timerPowerUpDuration = setTimeout(this.changeTimersSpeed, 20000, time);
-  }
+  // funcion que llamará el powerup que reduce el tiempo, falta ajustar tiempos y reducción de velocidad.
 
   this.changeTimersSpeed = function (intervalTime) {
     isTimeSlowed = false;
@@ -182,6 +165,22 @@ function Game() {
 
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
+
+  this.generatePowerUp = function () {
+    let randomPowerUp = Math.floor(Math.random() * (this.powerUpTypes.length - 1));
+    if (isPowerUpActive) {
+      return;
+    }
+    else if (!isPowerUpActive) {
+      this.powerUpTypes[randomPowerUp];
+      //aqui meter funcion que muestre el powerup
+    }
+    else {
+      this.generatePowerUp();
+    }
+  }.bind(this);
+
+  // funcion en prueba
 
   this.generateNpc = function () {
     let randomNpc = Math.floor(Math.random() * 9);
