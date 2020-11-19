@@ -142,7 +142,7 @@ body{
 /*PowerUp ----------------------------------------------*/
 #powerUp{
   position: absolute;
-  display:none;
+  display:block;
 }
 
 #heart{
@@ -192,6 +192,8 @@ display:none;
 .windowTemp {
   z-index: 550;
 }
+
+.powerup-01
 
 /* Window Positions */
 .row1 { top: var(--window-height); }

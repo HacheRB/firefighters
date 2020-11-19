@@ -17,6 +17,7 @@ var timerNpcGen = null;           // timer generador de npcs
 var isPowerUpActive = false;
 var isTimeSlowed = false;         // variable para controlar si el tiempo está relentizado(powerup)
 var timerPowerUpDuration = null;  // timer del powerup slowtime
+var timerDeletePowerUp = null;
 var npcWindowHadFire = false;     // si habia fuego en la ventana del npc cuando lo recogiste.
 var block = "block";
 const IMAGES = {
@@ -87,7 +88,6 @@ btMusic.addEventListener("click", function (event) {
   else {
     audio.pauseSound("music")
     btMusic.innerText = 'Music Off';
-
     musicOn = false;
   }
 })

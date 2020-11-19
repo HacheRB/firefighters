@@ -86,12 +86,14 @@ function Game() {
     this.hideById("gameOver")
     this.setFireTimer(time);
     this.setNpcTimer(time);
+    this.setPowerUpTimer();
   }
 
   this.resetGame = function () {
     totalPoints = points;
     this.stopNpcTimer();
     this.stopFireTimer();
+    this.stopPowerUpTimer();
     this.fireman.resetFireman();
     for (let i = 0; i < this.windows.length; i++) {
       this.windows[i].resetWindow();
@@ -162,22 +164,27 @@ function Game() {
   }
 
   this.setPowerUpTimer = function () {
-    timerPowerUpDuration = setInterval(this.generatePowerUp, 20000);
+    timerPowerUpDuration = setInterval(this.generatePowerUp, 10000);
+  }
+  this.stopPowerUpTimer = function () {
+    clearInterval(timerPowerUpDuration);
+    timerPowerUpDuration = null;
   }
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
 
   this.generatePowerUp = function () {
     let randomPowerUp = Math.floor(Math.random() * (this.powerUpTypes.length - 1));
+    console.log(randomPowerUp);
     if (isPowerUpActive) {
       return;
     }
     else if (!isPowerUpActive) {
-      this.powerUpTypes[randomPowerUp];
+      console.log(this.powerUpTypes[randomPowerUp]);
+      this.powerUpTypes[randomPowerUp].setRandomRow();
+      this.powerUpTypes[randomPowerUp].showPowerUp();
+      this.powerUpTypes[randomPowerUp].setPowerUp();
       //aqui meter funcion que muestre el powerup
-    }
-    else {
-      this.generatePowerUp();
     }
   }.bind(this);
 

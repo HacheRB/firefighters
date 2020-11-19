@@ -26,6 +26,8 @@ function WindowObj(num) {
     this.fire = false;
     this.stopNpcBurning();
     this.stopFireBurning();
+    points += 50;
+    game.updateScore();
   }
 
   this.setNpc = function () {
