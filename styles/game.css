@@ -71,15 +71,16 @@ body{
   right: 55px;
   width:475px;
   text-align: left;
-  z-index: 800;
-  
+  z-index: 800;  
 }
+
 #gameOver{
   display:none;
   top: 275px;
   right: 55px;
   width:475px;
 }
+
 #title{
   display:block;
   right: 55px;
@@ -94,9 +95,11 @@ body{
   height:75px;
   z-index: 900;
 }
+
 #start{  
   top: 500px;
 }
+
 #howToBt{
   top: 600px;
 }
@@ -110,6 +113,7 @@ body{
   top:725px;
   z-index: 900;
 }
+
 #howToPlay {
   font-size: 0.9rem;
   padding:3px;
@@ -140,10 +144,12 @@ body{
   position: absolute;
   display:none;
 }
+
 #heart{
  position: absolute;
 display:none;
 }
+
 #clock{
   position: absolute;
   display:none;

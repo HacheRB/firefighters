@@ -20,7 +20,6 @@ function Game() {
     new slowTime()
   ];
 
-
   // UI UPDATES --------------------------------------------------------------------------
   this.addPoints = function () {
     if (!npcWindowHadFire) {
@@ -109,7 +108,6 @@ function Game() {
     this.countNpc = 0;
   }
 
-
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
 
   //funcion adaptada para que tenga en cuenta el tiempo is slowed
@@ -163,6 +161,9 @@ function Game() {
     timerFireGen = null;
   }
 
+  this.setPowerUpTimer = function () {
+    timerPowerUpDuration = setInterval(this.generatePowerUp, 20000);
+  }
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
 

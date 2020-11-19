@@ -16,21 +16,14 @@ function PowerUp() {
     this.elem.classList.add(`col${this.col}`);
   }
 
-  this.removePosition = function () {
-    this.elem.classList.remove(`row${this.row}`);
-    this.elem.classList.remove(`col${this.col}`);
-  }
-
 }
 // SONS
 
 function lifePowerUp() {
   PowerUp.call();
 
-
   this.setPowerUp = function () {
     this.elem.querySelector("#heart").style.display = "block";
-
     if (lifes < 5) {
       audio.playSound("extraLife", 0.05);
       lifes++;
@@ -39,8 +32,8 @@ function lifePowerUp() {
   }
 }
 
-// lifePowerUp.prototype = Object.create(PowerUp.prototype);
-// lifePowerUp.prototype.constructor = lifePowerUp;
+lifePowerUp.prototype = Object.create(PowerUp.prototype);
+lifePowerUp.prototype.constructor = lifePowerUp;
 
 
 // slow time 
@@ -59,5 +52,5 @@ function slowTime() {
   }
 }
 
-// slowTime.prototype = Object.create(PowerUp.prototype);
-// slowTime.prototype.constructor = slowTime;
+slowTime.prototype = Object.create(PowerUp.prototype);
+slowTime.prototype.constructor = slowTime;

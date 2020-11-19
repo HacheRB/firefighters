@@ -76,12 +76,11 @@ btHow.addEventListener("click", function (event) {
   }
 })
 
-
-
+//Button Music
 const btMusic = document.getElementById('music').querySelector("h3");
 btMusic.addEventListener("click", function (event) {
   if (!musicOn) {
-    audio.loopSound("music", 0.05)
+    audio.loopSound("music", 0.025)
     btMusic.innerText = 'Music On';
     musicOn = true;
   }

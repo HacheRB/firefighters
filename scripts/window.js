@@ -30,6 +30,7 @@ function WindowObj(num) {
 
   this.setNpc = function () {
     this.elem.querySelector(".npc").style.display = "block";
+    audio.playSound("spawnNpc", 0.025);
     this.npc = true;
     this.npcBurning();
   }
