@@ -9,6 +9,7 @@ function audioPlayer() {
         splash: new Audio("assets/music/Splash-agua.wav"),
         dropNpc: new Audio("assets/music/dropNPC.wav"),
         npcMuere: new Audio("assets/music/sfx_deathscream_human9.wav"),
+        extraLife: new Audio("assets/music/sfx_sounds_powerup3.wav"),
     }
 
     this.playSound = function (sound, vol) {

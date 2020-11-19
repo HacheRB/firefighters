@@ -12,6 +12,8 @@ var time = 3000;
 var countNpc = 0;
 var timerFireGen = null;
 var timerNpcGen = null;
+var isTimeSlowed = false;
+var timerPowerUpDuration = null;
 var npcWindowHadFire = false;
 var block = "block";
 

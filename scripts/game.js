@@ -14,9 +14,22 @@ function Game() {
     new windowObj(32),
     new windowObj(33)
   ];
+  this.powerUpTypes = [
+
+  ]
 
 
   // UI UPDATES --------------------------------------------------------------------------
+
+  // add life working
+  this.addOneLife = function () {
+    if (lifes < 5) {
+      audio.playSound("extraLife", 0.05);
+      lifes++;
+      this.updateLifes();
+    }
+  }
+  //-----------------------
 
   this.addPoints = function () {
     if (!npcWindowHadFire) {
@@ -101,34 +114,53 @@ function Game() {
     lifes = 5;
     points = 0;
     level = 0;
+    time = 3000;
     this.countNpc = 0;
   }
 
 
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
-
+  //funcion adaptada para que tenga en cuenta el tiempo is slowed
   this.incrementLevel = function () {
     countNpc++;
-    if (countNpc === 3 && level <= 15) {
+    if (isTimeSlowed && countNpc === 3) {
       level++;
       this.updateLevel();
       countNpc = 0;
-      time /= 1.1;
-      this.changeTimersSpeed(time);
+    } else {
+      if (countNpc === 3 && level <= 15) {
+        level++;
+        this.updateLevel();
+        countNpc = 0;
+        time /= 1.1;
+        this.changeTimersSpeed(time);
+      }
+      if (countNpc === 3 && level > 15) {
+        level++;
+        this.updateLevel();
+        countNpc = 0;
+      }
     }
-    if (countNpc === 3 && level > 15) {
-      level++;
-      this.updateLevel();
-      countNpc = 0;
-    }
+  }
+
+  //powerup que reduce el tiempo
+  this.decreaseTimerSpeed = function () {
+    isTimeSlowed = true;
+    let currentTime = time * 3;
+    this.stopNpcTimer();
+    this.stopFireTimer();
+    this.setNpcTimer(currentTime);
+    this.setFireTimer(currentTime);
+    timerPowerUpDuration = setTimeout(this.changeTimersSpeed, 20000, time);
   }
 
   this.changeTimersSpeed = function (intervalTime) {
+    isTimeSlowed = false;
     this.stopNpcTimer();
     this.stopFireTimer();
-    this.setNpcTimer(time);
-    this.setFireTimer(time);
-  }
+    this.setNpcTimer(intervalTime);
+    this.setFireTimer(intervalTime);
+  }.bind(this);
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);
@@ -202,5 +234,4 @@ function Game() {
       }
     }
   }
-
 }

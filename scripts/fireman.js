@@ -27,6 +27,7 @@ function Fireman() {
       this.setNpc();
     }
   }
+
   this.dropNpc = function () {
     this.removeNpc();
     game.addPoints();
