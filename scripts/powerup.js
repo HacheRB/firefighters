@@ -23,12 +23,6 @@ function lifePowerUp() {
 
   }
 
-  this.hidePowerUp = function () {
-    this.elem.querySelector("#heart").style.display = "none";
-    isPowerUpActive = false;
-    timerDeletePowerUp = null;
-  }
-
   this.setPowerUp = function () {
     if (lifes < 5) {
       audio.playSound("extraLife", 0.05);
@@ -37,6 +31,12 @@ function lifePowerUp() {
       this.hidePowerUp();
     }
   }
+  this.hidePowerUp = function () {
+    this.elem.querySelector("#heart").style.display = "none";
+    isPowerUpActive = false;
+    timerDeletePowerUp = null;
+  }
+
 
   this.deletePowerUp = function () {
     this.hidePowerUp();

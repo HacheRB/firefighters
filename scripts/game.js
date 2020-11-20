@@ -119,6 +119,7 @@ function Game() {
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
 
   //funcion adaptada para que tenga en cuenta el tiempo is slowed
+
   this.incrementLevel = function () {
     countNpc++;
     if (isTimeSlowed && countNpc === 3) {
