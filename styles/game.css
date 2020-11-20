@@ -105,13 +105,20 @@ body{
 }
 
 #music {
+  background-image:url("assets/images/window.png"); 
+  background-color: green; 
   display:block;
   position:absolute;
   right: 0px;
-  width:210px;
-  height:50px;
-  top:725px;
+  width:40px;
+  height:40px;
+  top:735px;
   z-index: 900;
+}
+#music-icon{
+  display:absolute;
+  width:25px;
+  height:25px;
 }
 
 #howToPlay {

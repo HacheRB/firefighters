@@ -81,16 +81,16 @@ btHow.addEventListener("click", function (event) {
 })
 
 //Button Music
-const btMusic = document.getElementById('music').querySelector("h3");
+const btMusic = document.getElementById('music');
 btMusic.addEventListener("click", function (event) {
   if (!musicOn) {
     audio.loopSound("music", 0.025)
-    btMusic.innerText = 'Music On';
     musicOn = true;
+    btMusic.style.backgroundColor = "red";
   }
   else {
     audio.pauseSound("music")
-    btMusic.innerText = 'Music Off';
+    btMusic.style.backgroundColor = "green";
     musicOn = false;
   }
 })

@@ -24,7 +24,7 @@ function lifePowerUp() {
   }
 
   this.hidePowerUp = function () {
-   this.elem.querySelector("#heart").style.display = "none";
+    this.elem.querySelector("#heart").style.display = "none";
     isPowerUpActive = false;
     timerDeletePowerUp = null;
 
@@ -54,14 +54,14 @@ function slowTime() {
   this.showPowerUp = function () {
     this.elem.querySelector("#clock").style.display = "block";
     isPowerUpActive = true;
-    
+
   }
 
   this.hidePowerUp = function () {
     this.elem.querySelector("#clock").style.display = "none";
     isPowerUpActive = false;
     timerDeletePowerUp = null;
-    
+
   }
 
   this.setPowerUp = function () {

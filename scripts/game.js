@@ -16,7 +16,8 @@ function Game() {
   ];
 
   this.powerUpTypes = [
-    new lifePowerUp()
+    new lifePowerUp(),
+    new slowTime()
   ];
 
   // UI UPDATES --------------------------------------------------------------------------
@@ -101,7 +102,7 @@ function Game() {
     for (let i = 0; i < this.powerUpTypes.length; i++) {
       this.powerUpTypes[i].hidePowerUp();
     }
-    
+
     button.innerText = 'Start';
     gameOn = false;
     game.showById("howToBt", block);
@@ -112,7 +113,7 @@ function Game() {
     level = 0;
     time = 3000;
     this.countNpc = 0;
-    
+
   }
 
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
@@ -170,17 +171,22 @@ function Game() {
 
   this.setPowerUpTimer = function () {
     timerPowerUpDuration = setInterval(this.generatePowerUp, 10000);
-    
+
   }
   this.stopPowerUpTimer = function () {
     clearInterval(timerPowerUpDuration);
     timerPowerUpDuration = null;
   }
 
-  this.hidePowerUpTimer = function(pwup){
-    timerDeletePowerUp = setTimeout(pwup.hidePowerUp, 5000);
+  this.hidePowerUpTimer = function () {
+    timerDeletePowerUp = setTimeout(this.hideAllPowerUps, 3000);
   }
-  
+
+  this.hideAllPowerUps = function () {
+    for (let i = 0; i < this.powerUpTypes.length; i++) {
+      this.powerUpTypes[i].hidePowerUp();
+    }
+  }.bind(this);
 
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
@@ -197,14 +203,13 @@ function Game() {
     if (isPowerUpActive) {
       return;
     }
-    else if (!isPowerUpActive) {
-      console.log(this.powerUpTypes[randomPowerUp]);
+    else {
+      console.log
       this.powerUpTypes[randomPowerUp].setRandomRow();
       this.powerUpTypes[randomPowerUp].showPowerUp();
       this.hidePowerUpTimer(this.powerUpTypes[randomPowerUp]);
       //hide powerup a los 5 segundos
       //timerDeletePowerUp = setTimeout(this.powerUpTypes[randomPowerUp].hidePowerUp(), 5000);
-      
     }
   }.bind(this);
 

@@ -36,7 +36,6 @@ function Fireman() {
     }
   }
 
-
   this.dropNpc = function () {
     this.removeNpc();
     game.addPoints();
@@ -77,4 +76,4 @@ function Fireman() {
     this.removeNpc();
     this.addPosition();
   }
-}
+} 
