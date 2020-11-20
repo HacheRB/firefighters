@@ -40,7 +40,7 @@ document.addEventListener("keydown", function (event) {
 })
 
 //Boton Start/End
-const button = document.getElementById('start').querySelector("h2")
+const button = document.getElementById('start').querySelector("h2");
 button.addEventListener("click", function (event) {
   if (!gameOn) {
     audio.playSound("pause_in", 0.1);

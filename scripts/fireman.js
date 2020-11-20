@@ -29,10 +29,13 @@ function Fireman() {
   }
   //pendiente
   this.checkPowerUp = function (powerUp) {
-    if (isPowerUpActive) {
+    if (isPowerUpActive && lifes < 5) {
       powerUp.hidePowerUp();
       powerUp.setPowerUp();
       isPowerUpActive = false;
+    }
+    else {
+      audio.playSound("errorSound", 0.05);
     }
   }
 

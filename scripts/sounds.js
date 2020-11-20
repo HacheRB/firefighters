@@ -11,7 +11,10 @@ function audioPlayer() {
         npcMuere: new Audio("assets/music/sfx_deathscream_human9.wav"),
         extraLife: new Audio("assets/music/sfx_sounds_powerup3.wav"),
         music: new Audio("assets/music/music.wav"),
-        spawnNpc: new Audio("assets/music/sfx_sound_nagger2.wav"),
+        spawnNpc: new Audio("assets/music/sfx_sound_nagger2.wav")
+        ,
+        errorSound: new Audio("assets/music/sfx_sounds_damage3.wav")
+
     }
 
     this.playSound = function (sound, vol) {

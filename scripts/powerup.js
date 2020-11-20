@@ -27,7 +27,6 @@ function lifePowerUp() {
     this.elem.querySelector("#heart").style.display = "none";
     isPowerUpActive = false;
     timerDeletePowerUp = null;
-
   }
 
   this.setPowerUp = function () {
@@ -54,24 +53,24 @@ function slowTime() {
   this.showPowerUp = function () {
     this.elem.querySelector("#clock").style.display = "block";
     isPowerUpActive = true;
-
   }
 
   this.hidePowerUp = function () {
     this.elem.querySelector("#clock").style.display = "none";
     isPowerUpActive = false;
     timerDeletePowerUp = null;
-
   }
 
   this.setPowerUp = function () {
+    audio.playSound("extraLife", 0.05);
+    this.hidePowerUp();
     isTimeSlowed = true;
-    let currentTime = time * 3;
+    let currentTime = time * 10;
     game.stopNpcTimer();
     game.stopFireTimer();
     game.setNpcTimer(currentTime);
     game.setFireTimer(currentTime);
-    // timerPowerUpDuration = setTimeout(, 20000, time);
+    timerDeletePowerUp = setTimeout(game.changeTimersSpeed, time);
   }
 }
 

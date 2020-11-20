@@ -145,6 +145,7 @@ function Game() {
 
   this.changeTimersSpeed = function (intervalTime) {
     isTimeSlowed = false;
+    timerDeletePowerUp = null;
     this.stopNpcTimer();
     this.stopFireTimer();
     this.setNpcTimer(intervalTime);
@@ -204,7 +205,8 @@ function Game() {
       return;
     }
     else {
-      console.log
+      console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
+      console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
       this.powerUpTypes[randomPowerUp].setRandomRow();
       this.powerUpTypes[randomPowerUp].showPowerUp();
       this.hidePowerUpTimer(this.powerUpTypes[randomPowerUp]);
