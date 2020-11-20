@@ -16,8 +16,7 @@ function Game() {
   ];
 
   this.powerUpTypes = [
-    new lifePowerUp(),
-    new slowTime()
+    new lifePowerUp()
   ];
 
   // UI UPDATES --------------------------------------------------------------------------
@@ -172,10 +171,16 @@ function Game() {
   }
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
+  this.checkPowerUpRow = function () {
+    for (let i = 0; i < game.powerUpTypes.length; i++) {
+      if ((this.powerUpTypes[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.powerUpTypes[i].elem.classList.contains(`col${this.fireman.col}`))) {
+        this.fireman.checkPowerUp(this.powerUpTypes[i]);
+      }
+    }
+  }
 
   this.generatePowerUp = function () {
-    let randomPowerUp = Math.floor(Math.random() * (this.powerUpTypes.length - 1));
-    console.log(randomPowerUp);
+    let randomPowerUp = (Math.floor(Math.random() * (this.powerUpTypes.length)));
     if (isPowerUpActive) {
       return;
     }
@@ -183,7 +188,6 @@ function Game() {
       console.log(this.powerUpTypes[randomPowerUp]);
       this.powerUpTypes[randomPowerUp].setRandomRow();
       this.powerUpTypes[randomPowerUp].showPowerUp();
-      this.powerUpTypes[randomPowerUp].setPowerUp();
       //aqui meter funcion que muestre el powerup
     }
   }.bind(this);

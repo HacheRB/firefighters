@@ -32,7 +32,10 @@ document.addEventListener("keydown", function (event) {
   if (event.code === "ArrowDown") { game.fireman.move("down") }
   if (event.code === "ArrowLeft") { game.fireman.move("left") }
   if (event.code === "KeyA") { game.extinguishFire() }
-  if (event.code === "Space") { game.checkWindow() }
+  if (event.code === "Space") {
+    game.checkWindow();
+    game.checkPowerUpRow();
+  }
   //console.log(event.code);
 })
 

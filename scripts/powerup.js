@@ -4,7 +4,6 @@ function PowerUp() {
   this.elem = document.getElementById("powerUp");
   this.col = 4;
   this.row = 1;
-  this.isActive = false;
 
   this.setRandomRow = function () {
     this.elem.classList.remove(`row${this.row}`);
@@ -20,29 +19,27 @@ function lifePowerUp() {
 
   this.showPowerUp = function () {
     this.elem.querySelector("#heart").style.display = "block";
+    isPowerUpActive = true;
+
   }
 
   this.hidePowerUp = function () {
     this.elem.querySelector("#heart").style.display = "none";
+    isPowerUpActive = false;
   }
 
   this.setPowerUp = function () {
-    this.isActive = true;
-    this.elem.querySelector("#heart").style.display = "block";
-
     if (lifes < 5) {
       audio.playSound("extraLife", 0.05);
       lifes++;
       game.updateLifes();
+      this.hidePowerUp();
     }
-
   }
-
-  // timerDeletePowerUp = SetTimeout(this.deletePowerUp, 5000);
 
   this.deletePowerUp = function () {
     this.hidePowerUp();
-    this.isActive = false;
+    isPowerUpActive = false;
     game.stopPowerUpTimer();
     timerDeletePowerUp = null;
   }
@@ -50,26 +47,26 @@ function lifePowerUp() {
 
 // slow time 
 function slowTime() {
-  PowerUp.call();
+  PowerUp.call(this);
 
   this.showPowerUp = function () {
     this.elem.querySelector("#clock").style.display = "block";
+    this.setIsActive();
   }
 
   this.hidePowerUp = function () {
     this.elem.querySelector("#clock").style.display = "none";
+    isPowerUpActive = false;
   }
 
   this.setPowerUp = function () {
-    this.elem.querySelector("#clock").style.display = "block";
     isTimeSlowed = true;
     let currentTime = time * 3;
     game.stopNpcTimer();
     game.stopFireTimer();
     game.setNpcTimer(currentTime);
     game.setFireTimer(currentTime);
-    timerPowerUpDuration = setTimeout(game.changeTimersSpeed, 20000, time);
-
+    // timerPowerUpDuration = setTimeout(, 20000, time);
   }
 }
 

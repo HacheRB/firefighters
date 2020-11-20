@@ -27,6 +27,15 @@ function Fireman() {
       this.setNpc();
     }
   }
+  //pendiente
+  this.checkPowerUp = function (powerUp) {
+    if (isPowerUpActive) {
+      powerUp.hidePowerUp();
+      powerUp.setPowerUp();
+      isPowerUpActive = false;
+    }
+  }
+
 
   this.dropNpc = function () {
     this.removeNpc();
