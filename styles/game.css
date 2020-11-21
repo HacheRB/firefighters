@@ -92,7 +92,8 @@ body{
   border-bottom: 6px inset rgba(0,0,0,.5);
 	border-left: 6px inset rgba(0,0,0,.5);
 	border-right: 6px inset rgba(255,255,255,.5);
-	border-top: 6px inset rgba(255,255,255,.5);
+  border-top: 6px inset rgba(255,255,255,.5);
+  outline:none;
 }
 #start:hover, #howToBt:hover {
   background: #BCBCBC;
