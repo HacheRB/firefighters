@@ -28,14 +28,14 @@ function Fireman() {
     }
   }
   //pendiente
-  this.checkPowerUp = function (powerUp) {
-    if (isPowerUpActive && lifes < 5) {
-      powerUp.hidePowerUp();
-      powerUp.setPowerUp();
+  this.checkPowerUp = function (powerUpObj) {
+    if (isPowerUpActive) {
+      console.log(powerUpObj);
+      let tempVar = powerUpObj.getPowerUpId();
+      console.log(tempVar + "fireman");
+      powerUpObj.hidePowerUp(tempVar);
+      powerUpObj.setPowerUp();
       isPowerUpActive = false;
-    }
-    else {
-      audio.playSound("errorSound", 0.05);
     }
   }
 

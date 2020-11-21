@@ -17,8 +17,11 @@ function Game() {
 
   this.powerUpTypes = [
     new lifePowerUp(),
-    new slowTime()
   ];
+  console.log(this.powerUpTypes[0]);
+  console.log(this.powerUpTypes[1]);
+
+  //this.powerUpSelector = ["#heart", "#clock"];
 
   // UI UPDATES --------------------------------------------------------------------------
   this.addPoints = function () {
@@ -100,7 +103,8 @@ function Game() {
     }
 
     for (let i = 0; i < this.powerUpTypes.length; i++) {
-      this.powerUpTypes[i].hidePowerUp();
+      let tempVar = this.powerUpTypes[i].getPowerUpId();
+      this.powerUpTypes[i].hidePowerUp(tempVar);
     }
 
     button.innerText = 'Start';
@@ -186,7 +190,8 @@ function Game() {
 
   this.hideAllPowerUps = function () {
     for (let i = 0; i < this.powerUpTypes.length; i++) {
-      this.powerUpTypes[i].hidePowerUp();
+      let tempVar = this.powerUpTypes[i].getPowerUpId();
+      this.powerUpTypes[i].hidePowerUp(tempVar);
     }
   }.bind(this);
 
@@ -195,10 +200,11 @@ function Game() {
   this.checkPowerUpRow = function () {
     for (let i = 0; i < game.powerUpTypes.length; i++) {
       if ((this.powerUpTypes[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.powerUpTypes[i].elem.classList.contains(`col${this.fireman.col}`))) {
+
         this.fireman.checkPowerUp(this.powerUpTypes[i]);
       }
     }
-  }
+  }.bind(this);
 
   this.generatePowerUp = function () {
     let randomPowerUp = (Math.floor(Math.random() * (this.powerUpTypes.length)));
@@ -209,7 +215,8 @@ function Game() {
       console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
       console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
       this.powerUpTypes[randomPowerUp].setRandomRow();
-      this.powerUpTypes[randomPowerUp].showPowerUp();
+      let tempvar = this.powerUpTypes[randomPowerUp].getPowerUpId();
+      this.powerUpTypes[randomPowerUp].showPowerUp(tempvar);
       this.hidePowerUpTimer(this.powerUpTypes[randomPowerUp]);
       //hide powerup a los 5 segundos
       //timerDeletePowerUp = setTimeout(this.powerUpTypes[randomPowerUp].hidePowerUp(), 5000);

@@ -67,7 +67,7 @@ body{
 
 #howToPlay{
   display:none;
-  top: 310px;
+  top: 50px;
   right: 55px;
   width:475px;
   text-align: left;
@@ -122,9 +122,9 @@ body{
 }
 
 #howToPlay {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   padding:3px;
-  top: 200px;
+  top: 130px;
   right: 25px;
   height:350px;
   width: 525px;
