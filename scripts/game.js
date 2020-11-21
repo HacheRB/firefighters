@@ -48,12 +48,12 @@ function Game() {
     document.getElementById("score").style.display = "none";
   }
 
-  this.showGameOver = function () {
+  this.showGameOver = function (point) {
     var gameOv = document.getElementById("gameOver");
     gameOv.style.display = "block";
     var header = gameOv.querySelector("h1");
     header.innerText = `GAME OVER!
-    You got ${points} points!`;
+    You got ${point} points!`;
   }
 
   //hide and show ById - only block 
@@ -80,6 +80,7 @@ function Game() {
 
   // MENUS ------------------------------------------------------------------------------ 
   this.newGame = function () {
+    points = 0;
     this.updateLifes();
     this.updateScore();
     this.updateLevel();
@@ -111,9 +112,9 @@ function Game() {
     gameOn = false;
     game.showById("howToBt", block);
     this.hideUi();
-    this.showGameOver();
-    lifes = 5;
+    this.showGameOver(totalPoints);
     points = 0;
+    lifes = 5;
     level = 0;
     time = 3000;
     this.countNpc = 0;
