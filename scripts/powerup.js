@@ -21,8 +21,9 @@ function PowerUp() {
   }
 
   this.hidePowerUp = function (string) {
-    document.querySelector(string).style.display = "none";
+    console.log(string);
     isPowerUpActive = false;
+    document.querySelector(string).style.display = "none";
     timerDeletePowerUp = null;
   }
 }
