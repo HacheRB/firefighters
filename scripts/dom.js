@@ -40,18 +40,20 @@ document.addEventListener("keydown", function (event) {
 })
 
 //Boton Start/End
-const button = document.getElementById('start').querySelector("h2");
+const button = document.getElementById('start')
+//.querySelector("h2");
+const bth2 = button.querySelector("h3");
 button.addEventListener("click", function (event) {
   if (!gameOn) {
     audio.playSound("pause_in", 0.1);
-    button.innerText = 'End'
+    bth2.innerText = 'End'
     game.hideById("howToBt");
     game.hideById("title");
     game.newGame();
     gameOn = true;
   } else {
     audio.playSound("pause_out", 0.1);
-    button.innerText = 'Start';
+    bth2.innerText = 'Start';
     game.showById("howToBt", block);
     game.resetGame();
     gameOn = false;
@@ -59,11 +61,13 @@ button.addEventListener("click", function (event) {
 })
 
 //Boton how to
-const btHow = document.getElementById('howToBt').querySelector("h3")
+const btHow = document.getElementById('howToBt')
+//.querySelector("h3");
+const bth3 = btHow.querySelector("h3");
 btHow.addEventListener("click", function (event) {
   if (!howToOn && !gameOn) {
     audio.playSound("pause_in", 0.1);
-    btHow.innerText = 'Back';
+    bth3.innerText = 'Back';
     game.hideById("start");
     game.hideById("title");
     game.hideById("gameOver")
@@ -72,7 +76,7 @@ btHow.addEventListener("click", function (event) {
   }
   else {
     audio.playSound("pause_out", 0.1);
-    btHow.innerText = 'How to';
+    bth3.innerText = 'How to';
     game.showById("start", block);
     game.hideById("howToPlay");
     game.showById("title", block);

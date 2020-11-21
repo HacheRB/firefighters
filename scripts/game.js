@@ -107,7 +107,7 @@ function Game() {
       this.powerUpTypes[i].hidePowerUp(tempVar);
     }
 
-    button.innerText = 'Start';
+    bth2.innerText = 'Start';
     gameOn = false;
     game.showById("howToBt", block);
     this.hideUi();
