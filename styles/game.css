@@ -67,19 +67,20 @@ body{
 
 #howToPlay{
   display:none;
-  top: 310px;
+  top: 50px;
   right: 55px;
   width:475px;
   text-align: left;
-  z-index: 800;
-  
+  z-index: 800;  
 }
+
 #gameOver{
   display:none;
   top: 275px;
   right: 55px;
   width:475px;
 }
+
 #title{
   display:block;
   right: 55px;
@@ -87,23 +88,54 @@ body{
   width:475px;
   }
 
+#start, #howToBt, #music {
+  border-bottom: 6px inset rgba(0,0,0,.5);
+	border-left: 6px inset rgba(0,0,0,.5);
+	border-right: 6px inset rgba(255,255,255,.5);
+  border-top: 6px inset rgba(255,255,255,.5);
+  outline:none;
+}
+#start:hover, #howToBt:hover {
+  background: #BCBCBC;
+}
+
 #start, #howToBt {
   display:block;
   right: 200px;
-  width:200px;
+  width:175px;
   height:75px;
   z-index: 900;
 }
+
 #start{  
   top: 500px;
 }
+
 #howToBt{
   top: 600px;
 }
+
+#music {
+  background-color: green; 
+  display:block;
+  position:absolute;
+  right: 0px;
+  width:40px;
+  height:40px;
+  top:760px;
+  z-index: 900;
+}
+#music-icon{
+  display:absolute;
+  
+  width:18px;
+  height:18px;
+}
+
 #howToPlay {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   padding:3px;
-  top: 200px;
+  top: 130px;
   right: 25px;
   height:350px;
   width: 525px;
@@ -125,8 +157,24 @@ body{
   display:none;
   z-index:900;
 }
+/*PowerUp ----------------------------------------------*/
+#powerUp{
+  position: absolute;
+  display:block;
+}
 
-/* Sidewalk ---------------------------------------------*/
+#heart{
+ position: absolute;
+display:none;
+}
+
+#clock{
+  position: absolute;
+  display:none;
+}
+
+
+/* Sidewalk --------------------------------------------*/
 #sidewalk{
   background-image:url("../assets/images/sidewalk.png");
   top: 775px;
@@ -134,7 +182,7 @@ body{
   width: 1200px;
 }
 
-/* Building --------------------------------------------*/
+/* Building -------------------------------------------*/
 #building{
   background-image:url("../assets/images/building.png");
   top: 50px;

@@ -27,6 +27,18 @@ function Fireman() {
       this.setNpc();
     }
   }
+  //pendiente
+  this.checkPowerUp = function (powerUpObj) {
+    if (isPowerUpActive) {
+      console.log(powerUpObj);
+      let tempVar = powerUpObj.getPowerUpId();
+      console.log(tempVar + "fireman");
+      powerUpObj.hidePowerUp(tempVar);
+      powerUpObj.setPowerUp();
+      isPowerUpActive = false;
+    }
+  }
+
   this.dropNpc = function () {
     this.removeNpc();
     game.addPoints();
@@ -67,4 +79,4 @@ function Fireman() {
     this.removeNpc();
     this.addPosition();
   }
-}
+} 

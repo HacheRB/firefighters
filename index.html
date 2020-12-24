@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FireFighters: The Game</title>
+  <link rel="icon" href="favicon.ico" type="assets/images/flame" />
   <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/game.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,15 +30,15 @@
       <h1> hi!</h1>
     </span>
     <button id="start">
-      <h2>Start</h2>
+      <h3>Start</h3>
     </button>
     <div id="building"></div>
     <div id="sidewalk"></div>
     <div id="fireman" class="row4 col4">
       <img class="basket" src="assets/images/basket.png" alt="basket png">
       <img class="npcBasket" src="assets/images/npcbasket.png" alt="Npc basket png">
-
     </div>
+
     <div id="window11" class="window row1 col1">
       <img class="windowTemp" src="assets/images/window.png" alt="window image">
       <img class="fire" src="assets/images/fire.gif" alt="Fire gif">
@@ -83,6 +84,11 @@
       <img class="fire" src="assets/images/fire.gif" alt="Fire gif">
       <img class="npc" src="assets/images/npc.gif" alt="Npc gif">
     </div>
+
+    <div id="powerUp" class="row1 col4">
+      <img id="heart" src="assets/images/heart.png" alt="heart png">
+      <img id="clock" src="assets/images/clock.png" alt="clock png">
+    </div>
     <button id="howToBt">
       <h3>How to</h3>
     </button>
@@ -90,19 +96,27 @@
     <div id="howToPlay">
       <p>How to Play:<br></p>
       <p>- Arrow Keys for movement.<br></p>
-      <p>- Space Bar to grab/drop a NPC.<br></p>
+      <p>- Space Bar to grab/drop a NPC / grab a Power Up<br></p>
       <p>- "A" Key to extinguish Fire<br></p>
       <p> <br></p>
+      <p>Earn Points:<br></p>
+      <p>- 50 points for extinguishing a fire<br></p>
+      <p>- 100 points for saving a NPC<br></p>
+      <p>- 200 points for saving a NPC who has its window on fire<br></p>
+      <p> <br></p>
       <p> Tips:<br></p>
-      <p>-You can only carry 1 NPC at a time and can only drop at sidewalk level.<br></p>
-      <p>-Saving a NPC on fire rewards you with 200 points.<br></p>
+      <p>-You can only carry 1 NPC at a time and can only drop them at sidewalk level.<br></p>
     </div>
+    <button id="music">
+      <img id="music-icon" src="assets/images/musicicon.png" alt="music icon png">
+    </button>
   </div>
 
 
   <script src="scripts/fireman.js"></script>
   <script src="scripts/window.js"></script>
   <script src="scripts/sounds.js"></script>
+  <script src="scripts/powerup.js"></script>
   <script src="scripts/game.js"></script>
   <script src="scripts/dom.js"></script>
 </body>

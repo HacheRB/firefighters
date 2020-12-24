@@ -4,20 +4,26 @@ function Game() {
   this.fireman = new Fireman();
   this.fireman.removeNpc();
   this.windows = [
-    new windowObj(11),
-    new windowObj(12),
-    new windowObj(13),
-    new windowObj(21),
-    new windowObj(22),
-    new windowObj(23),
-    new windowObj(31),
-    new windowObj(32),
-    new windowObj(33)
+    new WindowObj(11),
+    new WindowObj(12),
+    new WindowObj(13),
+    new WindowObj(21),
+    new WindowObj(22),
+    new WindowObj(23),
+    new WindowObj(31),
+    new WindowObj(32),
+    new WindowObj(33)
   ];
 
+  this.powerUpTypes = [
+    new lifePowerUp(),
+  ];
+  console.log(this.powerUpTypes[0]);
+  console.log(this.powerUpTypes[1]);
+
+  //this.powerUpSelector = ["#heart", "#clock"];
 
   // UI UPDATES --------------------------------------------------------------------------
-
   this.addPoints = function () {
     if (!npcWindowHadFire) {
       points += 100;
@@ -42,15 +48,15 @@ function Game() {
     document.getElementById("score").style.display = "none";
   }
 
-  this.showGameOver = function () {
+  this.showGameOver = function (point) {
     var gameOv = document.getElementById("gameOver");
     gameOv.style.display = "block";
     var header = gameOv.querySelector("h1");
     header.innerText = `GAME OVER!
-    You got ${points} points!`;
+    You got ${point} points!`;
   }
-  //hide and show ById - only block 
 
+  //hide and show ById - only block 
   this.hideById = function (id) {
     let selectId = document.getElementById(id);
     selectId.style.display = "none";
@@ -59,7 +65,7 @@ function Game() {
     let selectedId = document.getElementById(id);
     selectedId.style.display = displayType;
   }
-  //
+
   this.updateScore = function () {
     document.getElementById("score").querySelector("h2").innerHTML = `Points : ${points}`;
   }
@@ -74,6 +80,7 @@ function Game() {
 
   // MENUS ------------------------------------------------------------------------------ 
   this.newGame = function () {
+    points = 0;
     this.updateLifes();
     this.updateScore();
     this.updateLevel();
@@ -83,52 +90,73 @@ function Game() {
     this.hideById("gameOver")
     this.setFireTimer(time);
     this.setNpcTimer(time);
+    this.setPowerUpTimer();
   }
 
   this.resetGame = function () {
     totalPoints = points;
     this.stopNpcTimer();
     this.stopFireTimer();
+    this.stopPowerUpTimer();
     this.fireman.resetFireman();
     for (let i = 0; i < this.windows.length; i++) {
       this.windows[i].resetWindow();
     }
-    button.innerText = 'Start';
+
+    for (let i = 0; i < this.powerUpTypes.length; i++) {
+      let tempVar = this.powerUpTypes[i].getPowerUpId();
+      this.powerUpTypes[i].hidePowerUp(tempVar);
+    }
+
+    bth2.innerText = 'Start';
     gameOn = false;
     game.showById("howToBt", block);
     this.hideUi();
-    this.showGameOver();
-    lifes = 5;
+    this.showGameOver(totalPoints);
     points = 0;
+    lifes = 5;
     level = 0;
+    time = 3000;
     this.countNpc = 0;
-  }
 
+  }
 
   // TIMERS PARA GENERAR FUEGOS / NPCS / y LEVELS
 
+  //funcion adaptada para que tenga en cuenta el tiempo is slowed
+
   this.incrementLevel = function () {
     countNpc++;
-    if (countNpc === 3 && level <= 15) {
+    if (isTimeSlowed && countNpc === 3) {
       level++;
       this.updateLevel();
       countNpc = 0;
-      time /= 1.1;
-      this.changeTimersSpeed(time);
-    }
-    if (countNpc === 3 && level > 15) {
-      level++;
-      this.updateLevel();
-      countNpc = 0;
+    } else {
+      if (countNpc === 3 && level <= 15) {
+        level++;
+        this.updateLevel();
+        countNpc = 0;
+        time /= 1.1;
+        this.changeTimersSpeed(time);
+      }
+      if (countNpc === 3 && level > 15) {
+        level++;
+        this.updateLevel();
+        countNpc = 0;
+      }
     }
   }
 
+  // funcion que llamará el powerup que reduce el tiempo, falta ajustar tiempos y reducción de velocidad.
+
   this.changeTimersSpeed = function (intervalTime) {
+    isTimeSlowed = false;
+    timerDeletePowerUp = null;
     this.stopNpcTimer();
     this.stopFireTimer();
-    this.setNpcTimer(time);
-    this.setFireTimer(time);
-  }
+    this.setNpcTimer(intervalTime);
+    this.setFireTimer(intervalTime);
+  }.bind(this);
 
   this.setNpcTimer = function (time) {
     timerNpcGen = setInterval(this.generateNpc, time);
@@ -148,8 +176,55 @@ function Game() {
     timerFireGen = null;
   }
 
+  this.setPowerUpTimer = function () {
+    timerPowerUpDuration = setInterval(this.generatePowerUp, 10000);
+
+  }
+  this.stopPowerUpTimer = function () {
+    clearInterval(timerPowerUpDuration);
+    timerPowerUpDuration = null;
+  }
+
+  this.hidePowerUpTimer = function () {
+    timerDeletePowerUp = setTimeout(this.hideAllPowerUps, 3000);
+  }
+
+  this.hideAllPowerUps = function () {
+    for (let i = 0; i < this.powerUpTypes.length; i++) {
+      let tempVar = this.powerUpTypes[i].getPowerUpId();
+      this.powerUpTypes[i].hidePowerUp(tempVar);
+    }
+  }.bind(this);
+
 
   // FUNCIONES DE GAME -------------------------------------------------------------------
+  this.checkPowerUpRow = function () {
+    for (let i = 0; i < game.powerUpTypes.length; i++) {
+      if ((this.powerUpTypes[i].elem.classList.contains(`row${this.fireman.row}`)) && (this.powerUpTypes[i].elem.classList.contains(`col${this.fireman.col}`))) {
+
+        this.fireman.checkPowerUp(this.powerUpTypes[i]);
+      }
+    }
+  }.bind(this);
+
+  this.generatePowerUp = function () {
+    let randomPowerUp = (Math.floor(Math.random() * (this.powerUpTypes.length)));
+    if (isPowerUpActive) {
+      return;
+    }
+    else {
+      console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
+      console.log(this.powerUpTypes[randomPowerUp].setRandomRow());
+      this.powerUpTypes[randomPowerUp].setRandomRow();
+      let tempvar = this.powerUpTypes[randomPowerUp].getPowerUpId();
+      this.powerUpTypes[randomPowerUp].showPowerUp(tempvar);
+      this.hidePowerUpTimer(this.powerUpTypes[randomPowerUp]);
+      //hide powerup a los 5 segundos
+      //timerDeletePowerUp = setTimeout(this.powerUpTypes[randomPowerUp].hidePowerUp(), 5000);
+    }
+  }.bind(this);
+
+  // funcion en prueba
 
   this.generateNpc = function () {
     let randomNpc = Math.floor(Math.random() * 9);
@@ -202,5 +277,4 @@ function Game() {
       }
     }
   }
-
 }

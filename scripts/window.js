@@ -1,11 +1,10 @@
 // Window Constructor
 
-function windowObj(num) {
+function WindowObj(num) {
   this.elem = document.getElementById('window' + num);
   this.fire = false;
   this.npc = false;
   this.timerNpcBurning = null;
-
   this.fireBurning = function () {
     audio.loopSound("fire1", 0.1);
   }
@@ -27,10 +26,13 @@ function windowObj(num) {
     this.fire = false;
     this.stopNpcBurning();
     this.stopFireBurning();
+    points += 50;
+    game.updateScore();
   }
 
   this.setNpc = function () {
     this.elem.querySelector(".npc").style.display = "block";
+    audio.playSound("spawnNpc", 0.025);
     this.npc = true;
     this.npcBurning();
   }
